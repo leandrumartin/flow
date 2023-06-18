@@ -1,5 +1,5 @@
 const clientId = 'ab43246b21ef497899f31b2377c7ed84';
-const redirectUri = 'http://127.0.0.1:52889/callback.html';
+const redirectUri = 'https://leandrumartin.github.io/flow/callback.html';
 
 const urlParams = new URLSearchParams(window.location.search);
 let code = urlParams.get('code');
