@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flow</title>
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <div class="form">
+      <div class="input">
+        <label for="playlist">Playlist URI</label>
+        <input type="text" name="playlist" id="playlist" required />
+      </div>
+      <p>
+        To get a playlist's URI, right-click on it and hold the Alt key while
+        hovering over the Share menu.
+      </p>
+      <div class="input">
+        <label for="randomize">Start with randomized order</label>
+        <input type="checkbox" name="randomize" id="randomize" />
+      </div>
+      <div class="input">
+        <label for="separate_artists"
+          >Separate songs from the same artist</label
+        >
+        <input type="checkbox" name="separate_artists" id="separate_artists" />
+      </div>
+      <div class="input">
+        <input type="button" id="submit" value="Flow" />
+      </div>
+    </div>
+
+    <div class="track_display" id="old_track_order"></div>
+
+    <div class="track_display" id="new_track_order"></div>
+
+    <div class="form" id="new_playlist_form" style="display: none">
+      <div class="input">
+        <label for="new_playlist">Enter new playlist name:</label>
+        <input
+          type="text"
+          name="new_playlist"
+          id="new_playlist_name"
+          required
+        />
+      </div>
+      <div class="input">
+        <input type="button" value="Save to Spotify" id="save_button" />
+      </div>
+    </div>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>

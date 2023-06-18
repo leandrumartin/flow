@@ -1,0 +1,35 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  background-color: white;
+}
+div.form {
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+div.input {
+  display: flex;
+  align-items: center;
+}
+input {
+  border-width: 2px;
+  border-style: solid;
+  border-color: gray;
+  border-radius: 3px;
+  margin: 5px;
+  padding: 5px;
+}
+input:hover {
+  border-color: #1db954;
+}
+input[type='button'] {
+  background-color: #1db954;
+  color: white;
+  border-color: transparent;
+  flex-grow: 100%;
+}
+input[type='button']:hover {
+  border-color: black;
+}
