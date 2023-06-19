@@ -10,9 +10,9 @@
   <h1>Privacy</h1>
   <p>This website only accesses the data of whatever playlist you give it, and your basic profile data in order to know where to save your playlist.</p>
   <p>No data is sent elsewhere. The only data stored is necessary to keep you logged in, and is stored in your local browser storage.</p>
-  <input type="button" value="Clear locally stored data from Flow" onclick=clearData />
+  <input type="button" id="clear_data" value="Clear locally stored data from Flow" />
   <script>
-    const clearData = () => {
+    document.querySelector('#clear_data').onclick = () => {
       localStorage.clear();
       alert('Data cleared!');
     }
