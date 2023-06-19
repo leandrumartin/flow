@@ -12,6 +12,7 @@ export default class Track {
     album,
     albumArt,
     artistIds,
+    url,
     isrc,
     genres = null
   ) {
@@ -21,6 +22,7 @@ export default class Track {
     this.album = album;
     this.albumArt = albumArt;
     this.artistIds = artistIds;
+    this.url = url;
     this.isrc = isrc;
     this.genres = genres;
   }
@@ -41,8 +43,6 @@ export default class Track {
       return artist.genres;
     });
     genres = genres.flat();
-
-    // TODO: deduplicate
 
     return genres;
   };

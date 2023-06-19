@@ -16,6 +16,7 @@ export default class TrackList {
         item.track.artists.map((artist) => {
           return artist.id;
         }),
+        item.track.external_urls.spotify,
         item.track.external_ids.isrc
       );
       retVal.push(track);

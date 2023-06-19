@@ -21,24 +21,28 @@ export default class PlaylistDisplay {
       trackDisplay.append(nameDisplay);
 
       let artistsDisplay = document.createElement('p');
-      artistsDisplay.textContent = track.artistNames;
+      artistsDisplay.textContent = track.artistNames.join(', ');
       trackDisplay.append(artistsDisplay);
+
+      let artLink = document.createElement('a');
+      artLink.href = track.url;
+      trackDisplay.append(artLink);
 
       let artDisplay = document.createElement('img');
       artDisplay.setAttribute('src', track.albumArt.url);
       artDisplay.setAttribute('width', 200);
-      trackDisplay.append(artDisplay);
+      artLink.append(artDisplay);
 
-      let statusDisplay = document.createElement('p');
-      statusDisplay.setAttribute('id', 'track' + trackNum);
+      let genresDisplay = document.createElement('p');
+      genresDisplay.setAttribute('id', 'track' + trackNum);
       if (track.genres === null) {
-        statusDisplay.textContent = 'Retrieving genres...';
+        genresDisplay.textContent = 'Retrieving genres...';
       } else if (track.genres.length === 0) {
-        statusDisplay.textContent = 'No genres found.';
+        genresDisplay.textContent = 'No genres found.';
       } else {
-        statusDisplay.textContent = 'Genres: ' + track.genres;
+        genresDisplay.textContent = 'Genres: ' + track.genres.join(', ');
       }
-      trackDisplay.append(statusDisplay);
+      trackDisplay.append(genresDisplay);
 
       trackNum += 1;
     });

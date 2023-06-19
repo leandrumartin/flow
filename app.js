@@ -13,7 +13,7 @@ spotifyApi.setAccessToken(localStorage.getItem('access-token'));
 const updateGenreDisplay = (trackNum, genres) => {
   let element = document.querySelector('#track' + trackNum);
   if (genres.length > 0) {
-    element.textContent = 'Genres: ' + genres;
+    element.textContent = 'Genres: ' + genres.join(', ');
   } else {
     element.textContent = 'No genres found.';
   }
@@ -42,7 +42,7 @@ document.querySelector('#submit').onclick = () => {
   spotifyApi
     .getPlaylistTracks(getPlaylistFromUri('#playlist'), {
       fields:
-        'items(track(id, name, album(name, images), artists(name, id), external_ids(isrc)))',
+        'items(track(id, name, album(name, images), artists(name, id), external_urls(spotify), external_ids(isrc)))',
     })
     .then(async (data) => {
       // Display current order of tracks
