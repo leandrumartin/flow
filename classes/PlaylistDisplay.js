@@ -15,23 +15,23 @@ export default class PlaylistDisplay {
       let trackDisplay = document.createElement('div');
       trackDisplay.className = 'track_container';
       fragment.append(trackDisplay);
+      
+      let trackLink = document.createElement('a');
+      trackLink.href = track.url;
+      trackDisplay.append(trackLink);
 
       let nameDisplay = document.createElement('p');
       nameDisplay.textContent = track.name;
-      trackDisplay.append(nameDisplay);
+      trackLink.append(nameDisplay);
 
       let artistsDisplay = document.createElement('p');
       artistsDisplay.textContent = track.artistNames.join(', ');
-      trackDisplay.append(artistsDisplay);
-
-      let artLink = document.createElement('a');
-      artLink.href = track.url;
-      trackDisplay.append(artLink);
+      trackLink.append(artistsDisplay);
 
       let artDisplay = document.createElement('img');
       artDisplay.setAttribute('src', track.albumArt.url);
       artDisplay.setAttribute('width', 200);
-      artLink.append(artDisplay);
+      trackLink.append(artDisplay);
 
       let genresDisplay = document.createElement('p');
       genresDisplay.setAttribute('id', 'track' + trackNum);
