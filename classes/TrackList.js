@@ -34,7 +34,7 @@ export default class TrackList {
     }
   }
 
-  sortByGenre = (randomize = false, separate_artists = false) => {
+  sortByGenre(randomize = false, separate_artists = false) {
     let data = this.data;
 
     if (randomize) {
@@ -82,9 +82,9 @@ export default class TrackList {
     }
 
     this.data = retVal;
-  };
+  }
 
-  getMatchData = (track, matchAgainst, allowSameArtistMatch) => {
+  getMatchData(track, matchAgainst, allowSameArtistMatch) {
     // For each genre tag of the current track, generate a list of tracks that
     // also share that genre tag. Then append that list to the genreMatches
     // array.
@@ -156,5 +156,5 @@ export default class TrackList {
         return { track: retTrack, index: matchAgainst.indexOf(retTrack) };
       }
     }
-  };
+  }
 }
