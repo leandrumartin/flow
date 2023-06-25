@@ -55,7 +55,7 @@ document.querySelector('#submit').onclick = () => {
       // Sort and display new order of tracks
       let randomize = document.querySelector('#randomize').value;
       let separate_artists = document.querySelector('#separate_artists').value;
-      trackList.sortByGenre(randomize, separate_artists);
+      trackList.sortByGenre(separate_artists);
       displayNewTracks(trackList.data);
 
       // Get list of final track IDs
