@@ -53,7 +53,6 @@ document.querySelector('#submit').onclick = () => {
       await trackList.retrieveGenres(updateGenreDisplay);
 
       // Sort and display new order of tracks
-      let randomize = document.querySelector('#randomize').value;
       let separate_artists = document.querySelector('#separate_artists').value;
       trackList.sortByGenre(separate_artists);
       displayNewTracks(trackList.data);

@@ -36,285 +36,165 @@ export default class TrackList {
 
   sortByGenre(separate_artists = false) {
     let data = this.data.slice();
-    let newTrackOrder = [];
-
-    // Set aside the songs with no genre tags and remove from data
-    /* let noGenres = [];
-    this.data.forEach((track, index) => {
-      if (track.genres.length === 0) {
-        noGenres.push(track);
-        data.splice(index, 1);
-      }
-    }); */
-
-    // Get each track's data of tracks it shares the most and least genres with
-    /* let dataWithMatches = [];
-    data.forEach((track) => {
-      let matchData = this.getTrackMatchData(track, data);
-      dataWithMatches.push({
-        track: track,
-        matchData: matchData,
-      });
-    }); */
-
-    // Declare constant with the original track order intact
-    /* const dataCopy = dataWithMatches.slice(); */
-    const dataCopy = data.slice();
+    let newTrackOrder;
 
     // Add to newTrackOrder the tracks that share the fewest genres with each other,
-    // and remove from dataWithMatches
-    /* let matchLeastAmounts = dataWithMatches.map(
-      (track) => track.matchData.leastMatches
-    );
-    let minMatches = Math.min(matchLeastAmounts);
-    dataCopy.forEach((track, index) => {
-      if (track.matchData.leastMatches === minMatches) {
-        newTrackOrder.push(track);
-        dataWithMatches.splice(index, 1);
-      }
-    }); */
-    let matchLeastAmounts = this.findLeastMatchingTracks(dataCopy);
-    matchLeastAmounts.forEach((trackIndex) => {
-      let thing = dataCopy[trackIndex];
-      newTrackOrder.push(thing);
-      // console.log(dataCopy[trackIndex]);
-      let whatever = data.findIndex((track) => track === thing);
-      data.splice(whatever, 1);
+    // and remove from data
+    newTrackOrder = this.getLeastSimilarTracks(data);
+    newTrackOrder.forEach((track) => {
+      let dataIndex = data.findIndex((dataTrack) => dataTrack === track);
+      data.splice(dataIndex, 1);
     });
 
     // Until data is empty, get the pairs of consecutive tracks in newTrackOrder
     // that share the fewest genres, and insert between them whichever track matches
     // them both best.
     while (data.length > 0) {
-      console.log('data: ');
-      console.log(data.slice());
-
-      console.log('newTrackOrder: ');
-      console.log(newTrackOrder.slice());
-
-      let tracksToInsertBetween =
-        this.findLeastMatchingConsecutive(newTrackOrder);
-      // for (let track1Index of tracksToInsertBetween) {
-      let track1Index = tracksToInsertBetween[0];
+      let track1Index = this.findLeastSimilarConsecutive(newTrackOrder);
       let track1 = newTrackOrder[track1Index];
-      let track2 = newTrackOrder[track1Index + 1];
+      let track2Index = track1Index + 1;
+      let track2 = newTrackOrder[track2Index];
 
-      // console.log('Inserting between ' + track1.name + ' and ' + track2.name);
-
-      let trackToInsertIndex = this.findBestMatchingTrack(track1, track2, data);
+      let trackToInsertIndex = this.findMedianSimilarTrack(
+        track1,
+        track2,
+        data,
+        separate_artists
+      );
       let trackToInsert = data[trackToInsertIndex];
 
-      // console.log('Inserting ' + trackToInsert.name);
-
-      newTrackOrder.splice(track1Index, 0, trackToInsert);
+      newTrackOrder.splice(track2Index, 0, trackToInsert);
       data.splice(trackToInsertIndex, 1);
-      // }
     }
 
     this.data = newTrackOrder;
   }
 
+  getNumSharedGenres(track1, track2) {
+    let sharedGenres = track1.genres.filter((genre) => {
+      return track2.genres.includes(genre);
+    });
+
+    return sharedGenres.length;
+  }
+
   /**
-   *
+   * Gets a list of tracks in the input that all share the fewest possible genres with each other.
    * @param {Track[]} data
    * @returns {Number[]} Array of the indices in the inputted array of the tracks whose lowest nhumber of genre matches with any other track is the minimum out of the data.
    */
-  findLeastMatchingTracks(data) {
-    let fewestMatches = Infinity;
-    let indices = [];
-    // Test every track against every other track
-    data.forEach((track1, track1Index) => {
-      // For each track2 in data, see how many genres it shares with track1.
-      data.forEach((track2, track2Index) => {
-        if (track1 !== track2) {
-          console.log('Comparing ' + track1.name + ' to ' + track2.name);
+  getLeastSimilarTracks(data) {
+    let minSharedGenres = Infinity;
+    let retVal = [];
 
-          // Let matchingGenres be an array of all genres the two tracks share
-          let matchingGenres = track1.genres.filter((genre) => {
-            return track2.genres.includes(genre);
-          });
-          let numMatches = matchingGenres.length;
-
-          // Add track1's index to the indices array if it's the lowest number of matches so far
-          if (numMatches < fewestMatches) {
-            fewestMatches = numMatches;
-            indices = [];
-
-            console.log('numMatches: ' + numMatches + '. Clearing.');
-          }
-          if (numMatches === fewestMatches && !indices.includes(track1Index)) {
-            indices.push(track1Index);
-
-            console.log('numMatches: ' + numMatches + '. Adding.');
-          } else {
-            console.log('numMatches: ' + numMatches + '. NOT adding.');
-          }
-        }
-      });
-    });
-    console.log(fewestMatches);
-    return indices;
-  }
-
-  findLeastMatchingConsecutive(data) {
-    let fewestMatches = Infinity;
-    let indices = [];
-    // Test every track against it sucessor in the data array
-    data.forEach((track1, track1Index) => {
-      if (track1Index !== data.length - 1) {
-        let track2 = data[track1Index + 1];
-        // Let matchingGenres be an array of all genres the two tracks share
-        let matchingGenres = track1.genres.filter((genre) => {
-          return track2.genres.includes(genre);
-        });
-        let numMatches = matchingGenres.length;
-
-        // Add track1's index to the indices array if it's the lowest number of matches so far
-        if (numMatches < fewestMatches) {
-          fewestMatches = numMatches;
-          indices = [];
-        }
-        if (numMatches === fewestMatches && !indices.includes(track1Index)) {
-          indices.push(track1Index);
-        }
+    // Test every track against every other track to find the pair of least similar tracks
+    data.forEach((track1) => {
+      if (track1.genres.length === 0) {
+        return;
       }
-    });
-    return indices;
-  }
-
-  /**
-   * Returns data for the tracks sharing genres with one track.
-   * @param {*} track - The track to get data for.
-   * @param {*} matchAgainst - An array of Track objects to find matches for the track.
-   * @returns
-   */
-  getTrackMatchData(track, matchAgainst) {
-    let retVal = {
-      mostMatches: 0,
-      mostMatchesTrackIndices: [],
-      leastMatches: Infinity,
-      leastMatchesTrackIndices: [],
-    };
-
-    // OLD
-    /*
-
-    // For each genre tag of the current track, generate a list of tracks that
-    // also share that genre tag. Then append that list to the genreMatches
-    // array.
-    let genreMatches = [];
-    track.genres.forEach((genre) => {
-      let matchesThisGenre = matchAgainst.filter((testTrack) => {
-        return testTrack.genres.includes(genre) && testTrack != track;
-      });
-      genreMatches = genreMatches.concat(matchesThisGenre);
-    });
-
-    if (genreMatches.length === 0) {
-      // There are no matches. Return retVal as is.
-      return retVal;
-    } else {
-      // Since we looped through each genre, the genreMatches[] array will have
-      // duplicates of each track that matched for more than one genre.
-      // We create a new array with an object for each track with the track itself
-      // and the number of appearances (the number of genres it matches with the
-      // current track) and reverse sort it by appearances.
-      genreMatches.sort((a, b) => {
-        if (a.id > b.id) {
-          return 1;
-        } else if (a.id < b.id) {
-          return -1;
+      data.forEach((track2) => {
+        // Continue through loop if comparing track to itself
+        if (track1 === track2 || track2.genres.length === 0) {
+          return;
         }
-        return 0;
-      }); // Group duplicates together
-      let trackAppearances = [];
-      genreMatches.forEach((matchTrack) => {
-        if (
-          trackAppearances.length === 0 ||
-          matchTrack.id !==
-            trackAppearances[trackAppearances.length - 1].track.id
-        ) {
-          trackAppearances.push({
-            track: matchTrack,
-            appearances:
-              genreMatches.lastIndexOf(matchTrack) -
-              genreMatches.indexOf(matchTrack),
-          });
+
+        let numSharedGenres = this.getNumSharedGenres(track1, track2);
+
+        // Set retVal to [track1, track2] if they share the fewest genres out of any pair so far
+        if (numSharedGenres < minSharedGenres) {
+          minSharedGenres = numSharedGenres;
+          retVal = [track1, track2];
         }
       });
-      trackAppearances.sort((a, b) => b.appearances - a.appearances);
+    });
 
-      // let trackDebug = JSON.stringify(track.name);
-      // let listDebug = JSON.stringify(trackAppearances.map((t) => t.track.name));
-      // console.log('Matching ' + trackDebug + ' against ' + listDebug);
-
-      // Return the track with the most genre matches (the first element).
-      let retTrack = trackAppearances[0].track;
-      return { track: retTrack, index: matchAgainst.indexOf(retTrack) };
-
-      */
-
-    // NEW
-
-    // For each track in matchAgainst, see how many genres it shares with the track.
-    matchAgainst.forEach((testTrack, testTrackIndex) => {
-      if (track != testTrack) {
-        // Let matchingGenres be an array of all genres the two tracks share
-        let matchingGenres = track.genres.filter((genre) => {
-          return testTrack.genres.includes(genre);
-        });
-        let numMatches = matchingGenres.length;
-
-        // Add testTrack's index and number of matches to retVal if it's the highest
-        // number of matches so far
-        if (numMatches > retVal.mostMatches) {
-          retVal.mostMatches = numMatches;
-          retVal.mostMatchesTrackIndices = [];
-        }
-        if (numMatches === retVal.mostMatches) {
-          retVal.mostMatchesTrackIndices.push(testTrackIndex);
-        }
-
-        // Do the same if it's the lowest number of matches so far
-        if (numMatches < retVal.leastMatches) {
-          retVal.leastMatches = numMatches;
-          retVal.leastMatchesTrackIndices = [];
-        }
-        if (numMatches === retVal.leastMatches) {
-          retVal.leastMatchesTrackIndices.push(testTrackIndex);
-        }
+    // At this point we have an array of 2 tracks to return. See if there are any other tracks
+    // in the inputted data that also share fewestMatches genres with all of the tracks in the
+    // indices[] array.
+    data.forEach((track1) => {
+      if (
+        retVal.every((track2) => {
+          let numSharedGenres = this.getNumSharedGenres(track1, track2);
+          return numSharedGenres === minSharedGenres;
+        })
+      ) {
+        retVal.push(track1);
       }
     });
 
     return retVal;
   }
 
-  findBestMatchingTrack(track1, track2, matchAgainst) {
+  /**
+   * Finds the two consecutive tracks in the input data that share the fewest genres with each other.
+   * @param {Track[]} data
+   * @returns {Number} Index of the first track in the pair.
+   */
+  findLeastSimilarConsecutive(data) {
+    let fewestMatches = Infinity;
+    let indexOfFirst;
+
+    // Test every track against its sucessor in the data array
+    data.forEach((track1, track1Index) => {
+      // Continue through loop if comparing track to itself
+      if (track1Index === data.length - 1) {
+        return;
+      }
+
+      let track2 = data[track1Index + 1];
+      let numMatches = this.getNumSharedGenres(track1, track2);
+
+      // Set indexOfFirst track1Index if they share the fewest genres out of any pair so far
+      if (numMatches < fewestMatches) {
+        fewestMatches = numMatches;
+        indexOfFirst = track1Index;
+      }
+    });
+    return indexOfFirst;
+  }
+
+  findMedianSimilarTrack(
+    track1,
+    track2,
+    matchAgainst,
+    separate_artists = false
+  ) {
     let mostAvgMatches = 0;
     let bestMatchIndex;
 
     // For each track in matchAgainst, get the average of its number of shared genres with
     // track1 and with track2. If higher than the current best, replace that.
     matchAgainst.forEach((testTrack, index) => {
-      let matches1 = track1.genres.filter((genre) => {
-        return testTrack.genres.includes(genre);
-      });
-      let numMatches1 = matches1.length;
+      let numMatches1 = this.getNumSharedGenres(track1, testTrack);
+      let numMatches2 = this.getNumSharedGenres(track2, testTrack);
 
-      let matches2 = track2.genres.filter((genre) => {
-        return testTrack.genres.includes(genre);
-      });
-      let numMatches2 = matches2.length;
+      // Disallow track from being selected as the median if separate_artists is true and
+      // it shares primary artists with one of the tracks it is being compared to.
+      let sharesBothArtists =
+        testTrack.artistIds[0] === track1.artistIds[0] ||
+        testTrack.artistIds[0] === track2.artistIds[0];
+      let isTrackAllowed = !separate_artists || !sharesBothArtists;
 
       let avgMatches = (numMatches1 + numMatches2) / 2;
-      if (avgMatches > mostAvgMatches) {
+      if (avgMatches > mostAvgMatches && isTrackAllowed) {
         mostAvgMatches = avgMatches;
         bestMatchIndex = index;
       }
     });
 
+    // If bestMatchIndex is still undefined, try with separate_artists = false if that is what
+    // caused it. Otherwise, set it to 0.
     if (bestMatchIndex === undefined) {
-      bestMatchIndex = 0;
+      if (separate_artists == true) {
+        bestMatchIndex = this.findMedianSimilarTrack(
+          track1,
+          track2,
+          matchAgainst,
+          false
+        );
+      } else {
+        bestMatchIndex = 0;
+      }
     }
 
     return bestMatchIndex;
