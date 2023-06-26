@@ -37,6 +37,12 @@ const displayNewTracks = (data) => {
   document.querySelector('#new_track_order').append(display.getDisplay());
 };
 
+const reset = () => {
+  document.querySelector('#old_track_order').innerHTML = '';
+  document.querySelector('#new_track_order').innerHTML = '';
+  document.querySelector('#new_playlist_form').style.display = 'none';
+};
+
 // Main
 document.querySelector('#submit').onclick = () => {
   spotifyApi
@@ -45,6 +51,10 @@ document.querySelector('#submit').onclick = () => {
         'items(track(id, name, album(name, images), artists(name, id), external_urls(spotify), external_ids(isrc)))',
     })
     .then(async (data) => {
+      // Clear track displays and disable button
+      reset();
+      document.querySelector('#submit').disabled = true;
+
       // Display current order of tracks
       let trackList = new TrackList(data);
       displayOldTracks(trackList.data);
@@ -64,6 +74,7 @@ document.querySelector('#submit').onclick = () => {
 
       // Show options for saving new playlist
       document.querySelector('#new_playlist_form').style.display = 'flex';
+      document.querySelector('#submit').disabled = false;
     })
     .catch((err) => {
       if (err.status === 401) {

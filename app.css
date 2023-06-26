@@ -15,7 +15,12 @@ div.track_container {
   margin-left: 40;
   margin-right: 40px;
 }
-div.track_container > p {
+div.track_container > a > p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.genres_display {
   /* Mutiline text with ellipses overflow */
   display: -webkit-box;
   -webkit-line-clamp: 3;

@@ -34,6 +34,7 @@ export default class PlaylistDisplay {
       trackLink.append(artDisplay);
 
       let genresDisplay = document.createElement('p');
+      genresDisplay.className = 'genres_display';
       genresDisplay.setAttribute('id', 'track' + trackNum);
       if (track.genres === null) {
         genresDisplay.textContent = 'Retrieving genres...';

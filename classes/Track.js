@@ -60,7 +60,7 @@ export default class Track {
         );
         XMLRequest.setRequestHeader(
           'User-Agent',
-          'FlowForSpotify/0.9 ( leandrumartin@gmail.com )'
+          'FlowForSpotify/1.0 ( leandrumartin@gmail.com )'
         );
         XMLRequest.send();
 
@@ -73,7 +73,7 @@ export default class Track {
             resolve('error');
           }
         };
-      }, 1000);
+      }, 1100);
     });
 
     return myPromise;
