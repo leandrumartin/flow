@@ -31,10 +31,18 @@ export default class Track {
     let retVal = [];
     retVal = retVal.concat(await this.getSpotifyGenres());
     retVal = retVal.concat(await this.getMusicBrainzGenres());
-
-    // TODO: deduplicate
-
+    retVal = this.deduplicate(retVal);
     this.genres = retVal;
+  };
+
+  deduplicate = (list) => {
+    let retVal = [];
+    list.forEach((item) => {
+      if (!retVal.includes(item)) {
+        retVal.push(item);
+      }
+    });
+    return retVal;
   };
 
   getSpotifyGenres = async () => {
