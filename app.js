@@ -2,6 +2,7 @@ import { SpotifyWebApi } from './spotify-web-api.js';
 
 import PlaylistDisplay from './classes/PlaylistDisplay.js';
 import TrackList from './classes/TrackList.js';
+import SortFactory from './classes/SortFactory.js';
 
 let finalTrackIds;
 
@@ -59,12 +60,21 @@ document.querySelector('#submit').onclick = () => {
       let trackList = new TrackList(data);
       displayOldTracks(trackList.data);
 
+      let sortString = document.querySelector(
+        'input[name="sort_method"]:checked'
+      ).value;
+
       // Get the genres for the tracks
-      await trackList.retrieveGenres(updateGenreDisplay);
+      if (sortString === 'genre') {
+        await trackList.retrieveGenres(updateGenreDisplay);
+      }
+
+      let sort = SortFactory(sortString);
 
       // Sort and display new order of tracks
       let separate_artists = document.querySelector('#separate_artists').value;
-      trackList.sortByGenre(separate_artists);
+      trackList.sort(sort, separate_artists);
+      // trackList.sortByGenre(separate_artists);
       displayNewTracks(trackList.data);
 
       // Get list of final track IDs
