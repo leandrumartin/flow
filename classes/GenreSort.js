@@ -163,4 +163,24 @@ export default class GenreSort {
 
     return bestMatchIndex;
   }
+
+  async retrieveData(data, onGenreUpdate) {
+    let trackNum = 0;
+    for (let track of data) {
+      await track.retrieveGenres();
+      onGenreUpdate(trackNum, track.genres);
+      trackNum += 1;
+    }
+    return data;
+  }
+
+  getDisplayText(track) {
+    if (track.genres === null) {
+      return 'Retrieving genres...';
+    } else if (track.genres.length === 0) {
+      return 'No genres found.';
+    } else {
+      return 'Genres: ' + track.genres.join(', ');
+    }
+  }
 }
