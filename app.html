@@ -18,11 +18,23 @@
         To get a playlist's URI, right-click on it and hold the Alt key while
         hovering over the Share menu.
       </p>
+
+      <fieldset>
+        <div class="input">
+          <input type="radio" name="sort_method" id="genre_sort" value="genre" checked />
+          <label for="genre_sort">Sort by genre</label>
+        </div>
+        <div class="input">
+          <input type="radio" name="sort_method" id="mood_sort" value="mood" />
+          <label for="mood_sort">Sort by mood</label>
+        </div>
+      </fieldset>
+      
       <div class="input">
+        <input type="checkbox" name="separate_artists" id="separate_artists" />
         <label for="separate_artists"
           >Try to separate songs from the same artist</label
         >
-        <input type="checkbox" name="separate_artists" id="separate_artists" />
       </div>
       <div class="input">
         <input type="button" id="submit" value="Flow"/>

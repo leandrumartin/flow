@@ -2,6 +2,7 @@ import { SpotifyWebApi } from './spotify-web-api.js';
 
 import PlaylistDisplay from './classes/PlaylistDisplay.js';
 import TrackList from './classes/TrackList.js';
+import SortFactory from './classes/SortFactory.js';
 
 let finalTrackIds;
 
@@ -10,13 +11,9 @@ var spotifyApi = new SpotifyWebApi();
 spotifyApi.setAccessToken(localStorage.getItem('access-token'));
 
 // Helper functions
-const updateGenreDisplay = (trackNum, genres) => {
+const updateDataDisplay = (trackNum, displayText) => {
   let element = document.querySelector('#track' + trackNum);
-  if (genres.length > 0) {
-    element.textContent = 'Genres: ' + genres.join(', ');
-  } else {
-    element.textContent = 'No genres found.';
-  }
+  element.textContent = displayText;
 };
 
 const getPlaylistFromUri = (inputID) => {
@@ -27,14 +24,14 @@ const getPlaylistFromUri = (inputID) => {
   return uri.slice(17);
 };
 
-const displayOldTracks = (data) => {
+const displayOldTracks = (data, sort) => {
   let display = new PlaylistDisplay(data);
-  document.querySelector('#old_track_order').append(display.getDisplay());
+  document.querySelector('#old_track_order').append(display.getDisplay(sort));
 };
 
-const displayNewTracks = (data) => {
+const displayNewTracks = (data, sort) => {
   let display = new PlaylistDisplay(data);
-  document.querySelector('#new_track_order').append(display.getDisplay());
+  document.querySelector('#new_track_order').append(display.getDisplay(sort));
 };
 
 const reset = () => {
@@ -55,17 +52,27 @@ document.querySelector('#submit').onclick = () => {
       reset();
       document.querySelector('#submit').disabled = true;
 
+      let sortString = document.querySelector(
+        'input[name="sort_method"]:checked'
+      ).value;
+      let sort = SortFactory(sortString);
+
       // Display current order of tracks
       let trackList = new TrackList(data);
-      displayOldTracks(trackList.data);
+      displayOldTracks(trackList, sort);
 
       // Get the genres for the tracks
-      await trackList.retrieveGenres(updateGenreDisplay);
+      // if (sortString === 'genre') {
+      //   await trackList.retrieveGenres(updateGenreDisplay);
+      // }
+
+      await trackList.retrieveData(sort, updateDataDisplay);
 
       // Sort and display new order of tracks
       let separate_artists = document.querySelector('#separate_artists').value;
-      trackList.sortByGenre(separate_artists);
-      displayNewTracks(trackList.data);
+      trackList.sort(sort, separate_artists);
+      // trackList.sortByGenre(separate_artists);
+      displayNewTracks(trackList, sort);
 
       // Get list of final track IDs
       finalTrackIds = trackList.data.map((track) => {

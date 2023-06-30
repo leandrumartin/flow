@@ -14,7 +14,8 @@ export default class Track {
     artistIds,
     url,
     isrc,
-    genres = null
+    genres = null,
+    audioFeatures = null
   ) {
     this.id = id;
     this.name = name;
@@ -25,6 +26,7 @@ export default class Track {
     this.url = url;
     this.isrc = isrc;
     this.genres = genres;
+    this.audioFeatures = audioFeatures;
   }
 
   retrieveGenres = async () => {
@@ -33,6 +35,10 @@ export default class Track {
     retVal = retVal.concat(await this.getMusicBrainzGenres());
     retVal = this.deduplicate(retVal);
     this.genres = retVal;
+  };
+
+  retrieveAudioFeatures = async () => {
+    this.audioFeatures = await spotifyApi.getAudioFeaturesForTrack(this.id);
   };
 
   deduplicate = (list) => {
