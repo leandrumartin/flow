@@ -33,11 +33,11 @@ export default class PlaylistDisplay {
       artDisplay.setAttribute('width', 200);
       trackLink.append(artDisplay);
 
-      let genresDisplay = document.createElement('p');
-      genresDisplay.className = 'genres_display';
-      genresDisplay.setAttribute('id', 'track' + trackNum);
-      genresDisplay.textContent = this.trackList.getDisplayText(sort, trackNum);
-      trackDisplay.append(genresDisplay);
+      let dataDisplay = document.createElement('p');
+      dataDisplay.className = 'data_display';
+      dataDisplay.setAttribute('id', 'track' + trackNum);
+      dataDisplay.textContent = this.trackList.getDisplayText(sort, trackNum);
+      trackDisplay.append(dataDisplay);
 
       trackNum += 1;
     });

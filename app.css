@@ -23,7 +23,7 @@ div.track_container > a > p {
   text-overflow: ellipsis;
 }
 
-.genres_display {
+.data_display {
   /* Mutiline text with ellipses overflow */
   display: -webkit-box;
   -webkit-line-clamp: 3;

@@ -11,13 +11,9 @@ var spotifyApi = new SpotifyWebApi();
 spotifyApi.setAccessToken(localStorage.getItem('access-token'));
 
 // Helper functions
-const updateGenreDisplay = (trackNum, genres) => {
+const updateDataDisplay = (trackNum, displayText) => {
   let element = document.querySelector('#track' + trackNum);
-  if (genres.length > 0) {
-    element.textContent = 'Genres: ' + genres.join(', ');
-  } else {
-    element.textContent = 'No genres found.';
-  }
+  element.textContent = displayText;
 };
 
 const getPlaylistFromUri = (inputID) => {
@@ -70,7 +66,7 @@ document.querySelector('#submit').onclick = () => {
       //   await trackList.retrieveGenres(updateGenreDisplay);
       // }
 
-      await trackList.retrieveData(sort, updateGenreDisplay);
+      await trackList.retrieveData(sort, updateDataDisplay);
 
       // Sort and display new order of tracks
       let separate_artists = document.querySelector('#separate_artists').value;

@@ -34,6 +34,22 @@ export default class GenreSort {
     return newTrackOrder;
   }
 
+  async retrieveData(track) {
+    await track.retrieveGenres();
+  }
+
+  getDisplayText(track) {
+    if (track.genres === null) {
+      return 'Retrieving genres...';
+    } else if (track.genres.length === 0) {
+      return 'No genres found.';
+    } else {
+      return 'Genres: ' + track.genres.join(', ');
+    }
+  }
+
+  // Helper functions
+
   getNumSharedGenres(track1, track2) {
     let sharedGenres = track1.genres.filter((genre) => {
       return track2.genres.includes(genre);
@@ -162,25 +178,5 @@ export default class GenreSort {
     }
 
     return bestMatchIndex;
-  }
-
-  async retrieveData(data, onGenreUpdate) {
-    let trackNum = 0;
-    for (let track of data) {
-      await track.retrieveGenres();
-      onGenreUpdate(trackNum, track.genres);
-      trackNum += 1;
-    }
-    return data;
-  }
-
-  getDisplayText(track) {
-    if (track.genres === null) {
-      return 'Retrieving genres...';
-    } else if (track.genres.length === 0) {
-      return 'No genres found.';
-    } else {
-      return 'Genres: ' + track.genres.join(', ');
-    }
   }
 }

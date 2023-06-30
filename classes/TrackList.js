@@ -25,17 +25,13 @@ export default class TrackList {
     this.data = retVal;
   }
 
-  // async retrieveGenres(onGenreUpdate) {
-  //   let trackNum = 0;
-  //   for (let track of this.data) {
-  //     await track.retrieveGenres();
-  //     onGenreUpdate(trackNum, track.genres);
-  //     trackNum += 1;
-  //   }
-  // }
-
   async retrieveData(sort, onDataUpdate) {
-    this.data = await sort.retrieveData(this.data, onDataUpdate);
+    let trackNum = 0;
+    for (let track of this.data) {
+      await sort.retrieveData(track);
+      onDataUpdate(trackNum, sort.getDisplayText(track));
+      trackNum += 1;
+    }
   }
 
   sort(sort, separate_artists = false) {
