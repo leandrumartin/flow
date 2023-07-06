@@ -50,7 +50,7 @@ export default class MoodSort {
   }
 
   async retrieveData(track) {
-    await track.retrieveAudioFeatures();
+      await track.retrieveAudioFeatures();
   }
 
   getDisplayText(track) {

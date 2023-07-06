@@ -42,55 +42,58 @@ const reset = () => {
 
 // Main
 document.querySelector('#submit').onclick = () => {
-  spotifyApi
-    .getPlaylistTracks(getPlaylistFromUri('#playlist'), {
-      fields:
-        'items(track(id, name, album(name, images), artists(name, id), external_urls(spotify), external_ids(isrc)))',
-    })
-    .then(async (data) => {
-      // Clear track displays and disable button
-      reset();
-      document.querySelector('#submit').disabled = true;
+  try {
+    let playlistUri = getPlaylistFromUri('#playlist');
+    spotifyApi
+      .getPlaylistTracks(playlistUri, {
+        fields:
+          'items(track(id, name, album(name, images), artists(name, id), external_urls(spotify), external_ids(isrc)))',
+      })
+      .then(async (data) => {
+        // Clear track displays and disable button
+        reset();
+        document.querySelector('#submit').disabled = true;
 
-      let sortString = document.querySelector(
-        'input[name="sort_method"]:checked'
-      ).value;
-      let sort = SortFactory(sortString);
+        let sortString = document.querySelector(
+          'input[name="sort_method"]:checked'
+        ).value;
+        let sort = SortFactory(sortString);
 
-      // Display current order of tracks
-      let trackList = new TrackList(data);
-      displayOldTracks(trackList, sort);
+        // Display current order of tracks
+        let trackList = new TrackList(data);
+        displayOldTracks(trackList, sort);
 
-      // Get the genres for the tracks
-      // if (sortString === 'genre') {
-      //   await trackList.retrieveGenres(updateGenreDisplay);
-      // }
+        // Get necessary track data depending on what kind of sort is being done
+        await trackList.retrieveData(sort, updateDataDisplay);
 
-      await trackList.retrieveData(sort, updateDataDisplay);
+        // Sort and display new order of tracks
+        let separate_artists =
+          document.querySelector('#separate_artists').value;
+        trackList.sort(sort, separate_artists);
+        // trackList.sortByGenre(separate_artists);
+        displayNewTracks(trackList, sort);
 
-      // Sort and display new order of tracks
-      let separate_artists = document.querySelector('#separate_artists').value;
-      trackList.sort(sort, separate_artists);
-      // trackList.sortByGenre(separate_artists);
-      displayNewTracks(trackList, sort);
+        // Get list of final track IDs
+        finalTrackIds = trackList.data.map((track) => {
+          return 'spotify:track:' + track.id;
+        });
 
-      // Get list of final track IDs
-      finalTrackIds = trackList.data.map((track) => {
-        return 'spotify:track:' + track.id;
+        // Show options for saving new playlist
+        document.querySelector('#new_playlist_form').style.display = 'flex';
+        document.querySelector('#submit').disabled = false;
+      })
+      .catch((err) => {
+        if (err.status === 401) {
+          alert('You need to log in with Spotify again.');
+          window.open('authorize.html', '_self');
+        } else {
+          alert(err);
+          console.error(err);
+        }
       });
-
-      // Show options for saving new playlist
-      document.querySelector('#new_playlist_form').style.display = 'flex';
-      document.querySelector('#submit').disabled = false;
-    })
-    .catch((err) => {
-      if (err.status === 401) {
-        alert('You need to log in with Spotify again.');
-      } else {
-        alert(err);
-        console.error(err);
-      }
-    });
+  } catch (err) {
+    alert(err.message);
+  }
 };
 
 // Saving playlist
@@ -108,7 +111,7 @@ document.querySelector('#save_button').onclick = async () => {
       alert('Playlist saved!');
     })
     .catch((err) => {
-      alert('There was a problem saving your playlist..');
+      alert('There was a problem saving your playlist.');
       console.error(err);
     });
 };

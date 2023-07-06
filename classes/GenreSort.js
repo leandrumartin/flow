@@ -35,7 +35,7 @@ export default class GenreSort {
   }
 
   async retrieveData(track) {
-    await track.retrieveGenres();
+      await track.retrieveGenres();
   }
 
   getDisplayText(track) {

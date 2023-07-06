@@ -28,7 +28,7 @@ export default class TrackList {
   async retrieveData(sort, onDataUpdate) {
     let trackNum = 0;
     for (let track of this.data) {
-      await sort.retrieveData(track);
+        await sort.retrieveData(track);
       onDataUpdate(trackNum, sort.getDisplayText(track));
       trackNum += 1;
     }

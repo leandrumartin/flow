@@ -83,9 +83,13 @@ export default class Track {
             let track = JSON.parse(XMLRequest.response);
             let genres = this.getMusicBrainzTags(track);
             resolve(genres);
-          } else {
-            resolve('error');
           }
+        };
+
+        XMLRequest.onerror = () => {
+          alert(
+            'Sorry, there was a problem fetching the track data. Refresh and try again.'
+          );
         };
       }, 1100);
     });
