@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flow</title>
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <div class="form">
+      <div class="input">
+        <label for="playlist">Playlist URI</label>
+        <input type="text" name="playlist" id="playlist" required />
+      </div>
+      <p>
+        To get a playlist's URI, right-click on it and hold the Alt key while
+        hovering over the Share menu.
+      </p>
+
+      <fieldset>
+        <div class="input">
+          <input type="radio" name="sort_method" id="genre_sort" value="genre" checked />
+          <label for="genre_sort">Sort by genre</label>
+        </div>
+        <div class="input">
+          <input type="radio" name="sort_method" id="mood_sort" value="mood" />
+          <label for="mood_sort">Sort by mood</label>
+        </div>
+      </fieldset>
+      
+      <div class="input">
+        <input type="checkbox" name="separate_artists" id="separate_artists" />
+        <label for="separate_artists"
+          >Try to separate songs from the same artist</label
+        >
+      </div>
+      <div class="input">
+        <input type="button" id="submit" value="Flow"/>
+      </div>
+    </div>
+
+    <div class="track_display" id="old_track_order"></div>
+
+    <div class="track_display" id="new_track_order"></div>
+
+    <div class="form" id="new_playlist_form" style="display: none">
+      <div class="input">
+        <label for="new_playlist">Enter new playlist name:</label>
+        <input
+          type="text"
+          name="new_playlist"
+          id="new_playlist_name"
+          required
+        />
+      </div>
+      <div class="input">
+        <input type="button" value="Save to Spotify" id="save_button" />
+      </div>
+    </div>
+
+    <div  style="text-align: center;">
+      <p>All metadata, except for additional genre tags from Last.FM, is taken from</p>
+      <img src="Spotify_Logo_RGB_Green.png" alt="Spotify logo" height="70px" style="margin: 35px" />
+    </div>
+    
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
