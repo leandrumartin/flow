@@ -1,4 +1,4 @@
-import { spotifyClientId, redirectUri } from './globals.js';
+import { clientId, redirectUri } from './globals.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 let code = urlParams.get('code');
@@ -8,7 +8,7 @@ let body = new URLSearchParams({
   grant_type: 'authorization_code',
   code: code,
   redirect_uri: redirectUri,
-  client_id: spotifyClientId,
+  client_id: clientId,
   code_verifier: codeVerifier,
 });
 

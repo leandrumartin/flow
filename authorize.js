@@ -1,4 +1,4 @@
-import { spotifyClientId, redirectUri } from './globals.js';
+import { clientId, redirectUri } from './globals.js';
 
 function generateRandomString(length) {
   let text = '';
@@ -41,7 +41,7 @@ generateCodeChallenge(codeVerifier).then((codeChallenge) => {
 
   let args = new URLSearchParams({
     response_type: 'code',
-    client_id: spotifyClientId,
+    client_id: clientId,
     scope: scope,
     redirect_uri: redirectUri,
     state: state,

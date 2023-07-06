@@ -1,5 +1,4 @@
 import { SpotifyWebApi } from '../spotify-web-api.js';
-import { lastFmApiKey } from '../globals.js';
 
 // Create Spotify API object
 var spotifyApi = new SpotifyWebApi();
@@ -33,7 +32,7 @@ export default class Track {
   retrieveGenres = async () => {
     let retVal = [];
     retVal = retVal.concat(await this.getSpotifyGenres());
-    retVal = retVal.concat(await this.getLastFmGenres());
+    retVal = retVal.concat(await this.getMusicBrainzGenres());
     retVal = this.deduplicate(retVal);
     this.genres = retVal;
   };
@@ -62,22 +61,16 @@ export default class Track {
     return genres;
   };
 
-  getLastFmGenres = async () => {
-    // Get track tags from Last.FM
+  getMusicBrainzGenres = async () => {
+    // Get track tags from MusicBrainz
     let myPromise = new Promise((resolve) => {
       setTimeout(() => {
         let XMLRequest = new XMLHttpRequest();
 
         XMLRequest.open(
           'GET',
-          'https://ws.audioscrobbler.com/2.0/?method=track.gettoptags' +
-            '&artist=' +
-            this.artistNames[0] +
-            '&track=' +
-            this.name +
-            '&api_key=' +
-            lastFmApiKey +
-            '&format=json'
+          'https://musicbrainz.org/ws/2/recording/?fmt=json&query=isrc:' +
+            this.isrc
         );
         XMLRequest.setRequestHeader(
           'User-Agent',
@@ -87,39 +80,30 @@ export default class Track {
 
         XMLRequest.onload = () => {
           if (XMLRequest.status === 200) {
-            console.log(JSON.parse(XMLRequest.response));
-
             let track = JSON.parse(XMLRequest.response);
-
-            try {
-              let genres = this.getLastFmTags(track);
-              resolve(genres);
-            } catch (error) {
-              resolve([]);
-            }
+            let genres = this.getMusicBrainzTags(track);
+            resolve(genres);
           } else {
             resolve('error');
           }
         };
-      }, 0);
+      }, 1100);
     });
 
     return myPromise;
   };
 
-  getLastFmTags = (track) => {
-    // let genres = [];
+  getMusicBrainzTags = (track) => {
+    let genres = [];
 
-    // for (let recording of track.recordings) {
-    //   if (recording.tags !== undefined) {
-    //     let tags = recording.tags.map((tag) => tag.name);
+    for (let recording of track.recordings) {
+      if (recording.tags !== undefined) {
+        let tags = recording.tags.map((tag) => tag.name);
 
-    //     genres = genres.concat(tags);
-    //   }
-    // }
+        genres = genres.concat(tags);
+      }
+    }
 
-    // return genres;
-
-    return track.toptags.tag.map((tag) => tag.name);
+    return genres;
   };
 }
