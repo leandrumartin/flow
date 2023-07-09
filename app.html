@@ -21,6 +21,17 @@
 
       <fieldset>
         <div class="input">
+          <input type="radio" name="operation" id="sort_operation" value="sort" checked />
+          <label for="sort_operation">Sort playlist</label>
+        </div>
+        <div class="input">
+          <input type="radio" name="operation" id="fill_operation" value="fill" />
+          <label for="fill_operation">Fill similarity gaps in playlist with recommended tracks</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <div class="input">
           <input type="radio" name="sort_method" id="genre_sort" value="genre" checked />
           <label for="genre_sort">Sort by genre</label>
         </div>
@@ -29,6 +40,15 @@
           <label for="mood_sort">Sort by mood</label>
         </div>
       </fieldset>
+
+      <div class="input">
+        <input type="range" name="energy-threshold" id="energy-threshold" min="0.3" max="0.9" step="0.1"/>
+        <label for="energy-threshold">Energy treshold</label>
+      </div>
+      <div class="input">
+        <input type="range" name="valence-threshold" id="valence-threshold" min="0.3" max="0.9" step="0.1"/>
+        <label for="valence-threshold">Valence treshold</label>
+      </div>
       
       <div class="input">
         <input type="checkbox" name="separate_artists" id="separate_artists" />
@@ -42,7 +62,7 @@
     </div>
 
     <div class="track_display" id="old_track_order"></div>
-
+    <p id="flow-placeholder" style="display: none;">Finding your flow...</p>
     <div class="track_display" id="new_track_order"></div>
 
     <div class="form" id="new_playlist_form" style="display: none">

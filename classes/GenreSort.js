@@ -1,3 +1,10 @@
+import { SpotifyWebApi } from '../spotify-web-api.js';
+import Track from './Track.js';
+
+// Create Spotify API object
+var spotifyApi = new SpotifyWebApi();
+spotifyApi.setAccessToken(localStorage.getItem('access-token'));
+
 export default class GenreSort {
   sorted(data, separate_artists = false) {
     let newTrackOrder;
@@ -34,8 +41,75 @@ export default class GenreSort {
     return newTrackOrder;
   }
 
+  async filled(data) {
+    let done = false;
+
+    let count = 0; // TEMP
+
+    while (!done) {
+      let track1Index = this.findLeastSimilarConsecutive(data);
+      let track1 = data[track1Index];
+      let track2Index = track1Index + 1;
+      let track2 = data[track2Index];
+
+      let numSharedGenres = this.getNumSharedGenres(track1, track2);
+
+      console.log(
+        'Shared genres is ' +
+          numSharedGenres +
+          '. Min genres is ' +
+          Math.min(track1.genres.length, track2.genres.length) +
+          ' (' +
+          track1.name +
+          '), (' +
+          track2.name +
+          ')'
+      );
+
+      if (
+        numSharedGenres <
+        Math.min(track1.genres.length, track2.genres.length) / 2
+        // count < 5 // TEMP
+      ) {
+        console.log(track1.name + ' ' + track2.name);
+        let recs = await spotifyApi.getRecommendations({
+          seed_tracks: [track1.id, track2.id],
+          // limit: 5,
+        });
+        console.log(recs);
+
+        if (recs.tracks !== undefined && recs.tracks.length > 0) {
+          let recList = recs.tracks.map((track) => new Track(track));
+          for (let track of recList) {
+            // await track.retrieveGenres();
+            track.genres = await track.getSpotifyGenres();
+          }
+          let recTrackIndex = this.findMedianSimilarTrack(
+            track1,
+            track2,
+            recList
+          );
+          data.splice(track2Index, 0, recList[recTrackIndex]);
+
+          // let rec = recs.tracks[0];
+          // let recTrack = new Track(rec);
+          // await recTrack.retrieveGenres();
+          // data.splice(track2Index, 0, recTrack);
+        } else {
+          done = true;
+        }
+      } else {
+        done = true;
+      }
+
+      count += 1;
+    }
+
+    return data;
+  }
+
   async retrieveData(track) {
-      await track.retrieveGenres();
+    await track.retrieveGenres();
   }
 
   getDisplayText(track) {

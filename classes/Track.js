@@ -5,28 +5,21 @@ var spotifyApi = new SpotifyWebApi();
 spotifyApi.setAccessToken(localStorage.getItem('access-token'));
 
 export default class Track {
-  constructor(
-    id,
-    name,
-    artistNames,
-    album,
-    albumArt,
-    artistIds,
-    url,
-    isrc,
-    genres = null,
-    audioFeatures = null
-  ) {
-    this.id = id;
-    this.name = name;
-    this.artistNames = artistNames;
-    this.album = album;
-    this.albumArt = albumArt;
-    this.artistIds = artistIds;
-    this.url = url;
-    this.isrc = isrc;
-    this.genres = genres;
-    this.audioFeatures = audioFeatures;
+  constructor(track) {
+    this.album = track.album.name;
+    this.albumArt = track.album.images[0];
+    this.artistIds = track.artists.map((artist) => {
+      return artist.id;
+    });
+    this.artistNames = track.artists.map((artist) => {
+      return artist.name;
+    });
+    this.audioFeatures = null;
+    this.genres = null;
+    this.id = track.id;
+    this.isrc = track.external_ids.isrc;
+    this.name = track.name;
+    this.url = track.external_urls.spotify;
   }
 
   retrieveGenres = async () => {

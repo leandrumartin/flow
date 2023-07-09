@@ -54,6 +54,10 @@ document.querySelector('#submit').onclick = () => {
         reset();
         document.querySelector('#submit').disabled = true;
 
+        let operationString = document.querySelector(
+          'input[name="operation"]:checked'
+        ).value;
+
         let sortString = document.querySelector(
           'input[name="sort_method"]:checked'
         ).value;
@@ -66,11 +70,26 @@ document.querySelector('#submit').onclick = () => {
         // Get necessary track data depending on what kind of sort is being done
         await trackList.retrieveData(sort, updateDataDisplay);
 
-        // Sort and display new order of tracks
-        let separate_artists =
-          document.querySelector('#separate_artists').value;
-        trackList.sort(sort, separate_artists);
-        // trackList.sortByGenre(separate_artists);
+        document.querySelector('#flow-placeholder').style.display = 'block';
+
+        // Perform main operation and display new order of tracks
+        if (operationString === 'sort') {
+          let separate_artists =
+            document.querySelector('#separate_artists').value;
+          trackList.sort(sort, separate_artists);
+        } else if (operationString === 'fill') {
+          let energyThreshold =
+            document.querySelector('#energy-threshold').value;
+          let valenceThreshold =
+            document.querySelector('#valence-threshold').value;
+          await trackList.fill(
+            sort,
+            energyThreshold,
+            valenceThreshold,
+            separate_artists
+          );
+        }
+        document.querySelector('#flow-placeholder').style.display = 'none';
         displayNewTracks(trackList, sort);
 
         // Get list of final track IDs
