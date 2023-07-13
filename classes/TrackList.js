@@ -5,21 +5,23 @@ export default class TrackList {
     // Build list of tracks from the raw Spotify API data, getting only the necessary info
     let retVal = [];
     data.items.forEach((item) => {
-      let track = new Track(
-        item.track.id,
-        item.track.name,
-        item.track.artists.map((artist) => {
-          return artist.name;
-        }),
-        item.track.album.name,
-        item.track.album.images[0],
-        item.track.artists.map((artist) => {
-          return artist.id;
-        }),
-        item.track.external_urls.spotify,
-        item.track.external_ids.isrc
-      );
-      retVal.push(track);
+      if (!item.is_local) {
+        let track = new Track(
+          item.track.id,
+          item.track.name,
+          item.track.artists.map((artist) => {
+            return artist.name;
+          }),
+          item.track.album.name,
+          item.track.album.images[0],
+          item.track.artists.map((artist) => {
+            return artist.id;
+          }),
+          item.track.external_urls.spotify,
+          item.track.external_ids.isrc
+        );
+        retVal.push(track);
+      }
     });
 
     this.data = retVal;

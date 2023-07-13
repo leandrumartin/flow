@@ -47,7 +47,7 @@ document.querySelector('#submit').onclick = () => {
     spotifyApi
       .getPlaylistTracks(playlistUri, {
         fields:
-          'items(track(id, name, album(name, images), artists(name, id), external_urls(spotify), external_ids(isrc)))',
+          'items(track(id, name, album(name, images), artists(name, id), external_urls(spotify), external_ids(isrc)), is_local), ',
       })
       .then(async (data) => {
         // Clear track displays and disable button
