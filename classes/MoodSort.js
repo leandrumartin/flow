@@ -1,7 +1,28 @@
 export default class MoodSort {
   sorted(data, separate_artists = false) {
-    // Sort by valence
-    data.sort((a, b) => a.audioFeatures.valence - b.audioFeatures.valence);
+    // Create groups of maximum 30 tracks each
+    let groups = [[]];
+    data.forEach((track) => {
+      let lastGroup = groups[groups.length - 1];
+      if (lastGroup.length < 30) {
+        lastGroup.push(track);
+      } else {
+        groups.push([track]);
+      }
+    });
+    data = groups;
+
+    // Sort each group by valence
+    data.forEach((group, groupIndex) => {
+      group.sort((a, b) => {
+        if (groupIndex % 2 === 0) {
+          return a.audioFeatures.valence - b.audioFeatures.valence;
+        } else {
+          return b.audioFeatures.valence - a.audioFeatures.valence;
+        }
+      });
+    });
+    data = data.flat();
 
     // Create groups based on their valence. The data array is divided into smaller arrays,
     // each containing tracks within 0.1 valence of each other.
