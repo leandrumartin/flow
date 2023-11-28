@@ -1,5 +1,17 @@
 export default class MoodSort {
   sorted(data, separate_artists = false) {
+    // Sort tracks by valence
+    data.sort((a, b) => {
+      return a.audioFeatures.valence - b.audioFeatures.valence;
+    });
+
+    // Number the tracks off into (Math.round(tracklength // 30)) groups (i.e. groups are about 30 tracks long)
+    let dataSortedTemp = data.toSorted((a, b) => {
+      let numGroups = Math.round(data.length / 30);
+      return (data.indexOf(a) % numGroups) - (data.indexOf(b) % numGroups);
+    });
+    data = dataSortedTemp;
+
     // Create groups of maximum 30 tracks each
     let groups = [[]];
     data.forEach((track) => {
@@ -71,17 +83,17 @@ export default class MoodSort {
   }
 
   async retrieveData(track) {
-      await track.retrieveAudioFeatures();
+    await track.retrieveAudioFeatures();
   }
 
   getDisplayText(track) {
     if (track.audioFeatures === null) {
-      return 'Retrieving audio features...';
+      return "Retrieving audio features...";
     } else {
       return (
-        'Energy: ' +
+        "Energy: " +
         track.audioFeatures.energy +
-        ', Valence: ' +
+        ", Valence: " +
         track.audioFeatures.valence
       );
     }
