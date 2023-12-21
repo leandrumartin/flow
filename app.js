@@ -67,8 +67,6 @@ document.querySelector("#submit").onclick = () => {
               "items(track(id, name, album(name, images), artists(name, id), external_urls(spotify), external_ids(isrc)), is_local), next, offset",
             offset: data.offset + 100,
           });
-          console.log(data);
-          console.log(allData.items);
           allData.items = allData.items.concat(data.items);
         }
 
@@ -109,16 +107,41 @@ document.querySelector("#submit").onclick = () => {
   }
 };
 
+// Displaying image preview
+document.querySelector("#playlist_image").addEventListener("input", () => {
+  let playlistImage = document.querySelector("#playlist_image").files[0];
+  createImageBitmap(playlistImage, {
+    resizeWidth: 500,
+    resizeHeight: 500,
+  }).then((playlistImageBitmap) => {
+    let canvas = document.querySelector("#image_preview");
+    canvas.style.display = "block";
+    canvas.getContext("2d").drawImage(playlistImageBitmap, 0, 0);
+  });
+});
+
 // Saving playlist
 document.querySelector("#save_button").onclick = async () => {
   let newPlaylistName = document.querySelector("#new_playlist_name").value;
+  let newPlaylistId;
   spotifyApi
     .getMe()
     .then((user) => {
       return spotifyApi.createPlaylist(user.id, { name: newPlaylistName });
     })
     .then((newPlaylist) => {
+      newPlaylistId = newPlaylist.id;
       return spotifyApi.addTracksToPlaylist(newPlaylist.id, finalTrackIds);
+    })
+    .then((newPlaylist) => {
+      let playlistImage = document.querySelector("#playlist_image").files[0];
+      if (playlistImage) {
+        let canvas = document.querySelector("#image_preview");
+        return spotifyApi.uploadCustomPlaylistCoverImage(
+          newPlaylistId,
+          canvas.toDataURL().split(",")[1]
+        );
+      }
     })
     .then(() => {
       alert("Playlist saved!");

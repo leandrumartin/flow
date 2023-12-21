@@ -21,7 +21,13 @@
 
       <fieldset>
         <div class="input">
-          <input type="radio" name="sort_method" id="genre_sort" value="genre" checked />
+          <input
+            type="radio"
+            name="sort_method"
+            id="genre_sort"
+            value="genre"
+            checked
+          />
           <label for="genre_sort">Sort by genre</label>
         </div>
         <div class="input">
@@ -29,7 +35,7 @@
           <label for="mood_sort">Sort by mood</label>
         </div>
       </fieldset>
-      
+
       <div class="input">
         <input type="checkbox" name="separate_artists" id="separate_artists" />
         <label for="separate_artists"
@@ -37,7 +43,7 @@
         >
       </div>
       <div class="input">
-        <input type="button" id="submit" value="Flow"/>
+        <input type="button" id="submit" value="Flow" />
       </div>
     </div>
 
@@ -56,15 +62,37 @@
         />
       </div>
       <div class="input">
+        <label for="playlist_image">(Optional) Upload playlist image:</label>
+        <input
+          type="file"
+          name="playlist_image"
+          id="playlist_image"
+          accept="image/jpeg"
+        />
+      </div>
+      <canvas
+        id="image_preview"
+        width="500"
+        height="500"
+        style="display: none"
+      ></canvas>
+      <div class="input">
         <input type="button" value="Save to Spotify" id="save_button" />
       </div>
     </div>
 
-    <div  style="text-align: center;">
-      <p>All metadata, except for additional genre tags from MusicBrainz, is taken from</p>
-      <img src="Spotify_Logo_RGB_Green.png" alt="Spotify logo" height="70px" style="margin: 35px" />
+    <div style="text-align: center">
+      <p>
+        All metadata, except for additional genre tags from MusicBrainz, is
+        taken from
+      </p>
+      <img
+        src="Spotify_Logo_RGB_Green.png"
+        alt="Spotify logo"
+        height="70px"
+        style="margin: 35px"
+      />
     </div>
-    
 
     <script src="app.js" type="module"></script>
   </body>
