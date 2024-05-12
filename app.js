@@ -129,9 +129,11 @@ document.querySelector("#save_button").onclick = async () => {
     .then((user) => {
       return spotifyApi.createPlaylist(user.id, { name: newPlaylistName });
     })
-    .then((newPlaylist) => {
+    .then(async (newPlaylist) => {
       newPlaylistId = newPlaylist.id;
-      return spotifyApi.addTracksToPlaylist(newPlaylist.id, finalTrackIds);
+      for (let i = 0; i < finalTrackIds.length; i += 100) {
+        await spotifyApi.addTracksToPlaylist(newPlaylist.id, finalTrackIds.slice(i, i + 100));
+      }
     })
     .then((newPlaylist) => {
       let playlistImage = document.querySelector("#playlist_image").files[0];
