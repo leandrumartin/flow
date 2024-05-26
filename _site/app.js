@@ -77,9 +77,7 @@ document.querySelector("#submit").onclick = () => {
         // Get necessary track data depending on what kind of sort is being done
         await trackList.retrieveData(sort, updateDataDisplay);
 
-        console.log(getAIData(trackList.data));
-
-/*         // Sort and display new order of tracks
+        // Sort and display new order of tracks
         let separate_artists =
           document.querySelector("#separate_artists").value;
         trackList.sort(sort, separate_artists);
@@ -89,7 +87,7 @@ document.querySelector("#submit").onclick = () => {
         // Get list of final track IDs
         finalTrackIds = trackList.data.map((track) => {
           return "spotify:track:" + track.id;
-        }); */
+        });
 
         // Show options for saving new playlist
         document.querySelector("#new_playlist_form").style.display = "flex";
@@ -155,16 +153,3 @@ document.querySelector("#save_button").onclick = async () => {
       console.error(err);
     });
 };
-
-function getAIData(tracklist) {
-  let aiData = [];
-  for (let track of tracklist) {
-    aiData.push({
-      name: track.name,
-      artistNames: track.artistNames,
-      audioFeatures: track.audioFeatures,
-      genres: track.genres,
-    });
-  }
-  return aiData;
-}

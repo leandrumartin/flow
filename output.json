@@ -1,0 +1,680 @@
+[
+    {
+        "name": "Pree-Sisters Swallowing a Donkey's Eye",
+        "artistNames": [
+            "Neutral Milk Hotel"
+        ],
+        "audioFeatures": {
+            "danceability": 0.0721,
+            "energy": 0.239,
+            "key": 11,
+            "loudness": -14.317,
+            "mode": 1,
+            "speechiness": 0.0395,
+            "acousticness": 0.822,
+            "instrumentalness": 0.942,
+            "liveness": 0.108,
+            "valence": 0.0395,
+            "tempo": 178.488,
+            "type": "audio_features",
+            "id": "2JmZ90qBkpBZQJe5IEP6JC",
+            "uri": "spotify:track:2JmZ90qBkpBZQJe5IEP6JC",
+            "track_href": "https://api.spotify.com/v1/tracks/2JmZ90qBkpBZQJe5IEP6JC",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/2JmZ90qBkpBZQJe5IEP6JC",
+            "duration_ms": 829160,
+            "time_signature": 4
+        },
+        "genres": [
+            "alternative rock",
+            "chamber pop",
+            "elephant 6",
+            "indie rock",
+            "lo-fi",
+            "noise pop",
+            "slacker rock",
+            "rock",
+            "punk",
+            "indie"
+        ]
+    },
+    {
+        "name": "LSFeet",
+        "artistNames": [
+            "Water Trash"
+        ],
+        "audioFeatures": {
+            "danceability": 0.401,
+            "energy": 0.577,
+            "key": 5,
+            "loudness": -8.76,
+            "mode": 0,
+            "speechiness": 0.0408,
+            "acousticness": 0.0968,
+            "instrumentalness": 0.00953,
+            "liveness": 0.0903,
+            "valence": 0.126,
+            "tempo": 92.88,
+            "type": "audio_features",
+            "id": "5CNWxFMRjrD7EeRlP4JJK7",
+            "uri": "spotify:track:5CNWxFMRjrD7EeRlP4JJK7",
+            "track_href": "https://api.spotify.com/v1/tracks/5CNWxFMRjrD7EeRlP4JJK7",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/5CNWxFMRjrD7EeRlP4JJK7",
+            "duration_ms": 388750,
+            "time_signature": 4
+        },
+        "genres": [
+            "pittsburgh indie"
+        ]
+    },
+    {
+        "name": "Numb",
+        "artistNames": [
+            "Linkin Park"
+        ],
+        "audioFeatures": {
+            "danceability": 0.488,
+            "energy": 0.87,
+            "key": 6,
+            "loudness": -4.185,
+            "mode": 0,
+            "speechiness": 0.0421,
+            "acousticness": 0.00353,
+            "instrumentalness": 0,
+            "liveness": 0.484,
+            "valence": 0.211,
+            "tempo": 110.072,
+            "type": "audio_features",
+            "id": "2nLtzopw4rPReszdYBJU6h",
+            "uri": "spotify:track:2nLtzopw4rPReszdYBJU6h",
+            "track_href": "https://api.spotify.com/v1/tracks/2nLtzopw4rPReszdYBJU6h",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/2nLtzopw4rPReszdYBJU6h",
+            "duration_ms": 187520,
+            "time_signature": 4
+        },
+        "genres": [
+            "alternative metal",
+            "nu metal",
+            "post-grunge",
+            "rap metal",
+            "rock",
+            "alternative rock",
+            "heavy metal",
+            "punk",
+            "alternative",
+            "rapcore",
+            "rap rock",
+            "alternative and punk",
+            "rap-metal",
+            "rap-rock",
+            "pop/rock"
+        ]
+    },
+    {
+        "name": "Keep Me Under Your Arms - Audiotree Live Version",
+        "artistNames": [
+            "Modern Vices",
+            "Audiotree"
+        ],
+        "audioFeatures": {
+            "danceability": 0.327,
+            "energy": 0.742,
+            "key": 9,
+            "loudness": -6.168,
+            "mode": 1,
+            "speechiness": 0.0425,
+            "acousticness": 0.000446,
+            "instrumentalness": 0.658,
+            "liveness": 0.13,
+            "valence": 0.17,
+            "tempo": 115.539,
+            "type": "audio_features",
+            "id": "0f6Ny1uEFetuXF11aPPT03",
+            "uri": "spotify:track:0f6Ny1uEFetuXF11aPPT03",
+            "track_href": "https://api.spotify.com/v1/tracks/0f6Ny1uEFetuXF11aPPT03",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/0f6Ny1uEFetuXF11aPPT03",
+            "duration_ms": 242517,
+            "time_signature": 4
+        },
+        "genres": [
+            "indie garage rock",
+            "indie surf"
+        ]
+    },
+    {
+        "name": "Sleepwalking",
+        "artistNames": [
+            "Dead Finks"
+        ],
+        "audioFeatures": {
+            "danceability": 0.545,
+            "energy": 0.528,
+            "key": 6,
+            "loudness": -6.603,
+            "mode": 0,
+            "speechiness": 0.0306,
+            "acousticness": 0.321,
+            "instrumentalness": 0.58,
+            "liveness": 0.135,
+            "valence": 0.26,
+            "tempo": 120.055,
+            "type": "audio_features",
+            "id": "1iPFNjQHdl4FaCECaaPjix",
+            "uri": "spotify:track:1iPFNjQHdl4FaCECaaPjix",
+            "track_href": "https://api.spotify.com/v1/tracks/1iPFNjQHdl4FaCECaaPjix",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/1iPFNjQHdl4FaCECaaPjix",
+            "duration_ms": 238059,
+            "time_signature": 4
+        },
+        "genres": [
+            "egg punk"
+        ]
+    },
+    {
+        "name": "Family Matters",
+        "artistNames": [
+            "Drake"
+        ],
+        "audioFeatures": {
+            "danceability": 0.527,
+            "energy": 0.492,
+            "key": 1,
+            "loudness": -9.774,
+            "mode": 1,
+            "speechiness": 0.279,
+            "acousticness": 0.0047,
+            "instrumentalness": 0,
+            "liveness": 0.306,
+            "valence": 0.234,
+            "tempo": 164.005,
+            "type": "audio_features",
+            "id": "1wFFFzJ5EsKbBWZriAcubN",
+            "uri": "spotify:track:1wFFFzJ5EsKbBWZriAcubN",
+            "track_href": "https://api.spotify.com/v1/tracks/1wFFFzJ5EsKbBWZriAcubN",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/1wFFFzJ5EsKbBWZriAcubN",
+            "duration_ms": 456934,
+            "time_signature": 4
+        },
+        "genres": [
+            "canadian hip hop",
+            "canadian pop",
+            "hip hop",
+            "pop rap",
+            "rap"
+        ]
+    },
+    {
+        "name": "Dawn Patrol",
+        "artistNames": [
+            "Mild High Club"
+        ],
+        "audioFeatures": {
+            "danceability": 0.584,
+            "energy": 0.385,
+            "key": 11,
+            "loudness": -8.117,
+            "mode": 1,
+            "speechiness": 0.033,
+            "acousticness": 0.0688,
+            "instrumentalness": 0.841,
+            "liveness": 0.108,
+            "valence": 0.285,
+            "tempo": 77.515,
+            "type": "audio_features",
+            "id": "0SrqWq0n8yez3wCrSkr0rm",
+            "uri": "spotify:track:0SrqWq0n8yez3wCrSkr0rm",
+            "track_href": "https://api.spotify.com/v1/tracks/0SrqWq0n8yez3wCrSkr0rm",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/0SrqWq0n8yez3wCrSkr0rm",
+            "duration_ms": 94533,
+            "time_signature": 4
+        },
+        "genres": [
+            "indie garage rock",
+            "neo-psychedelic"
+        ]
+    },
+    {
+        "name": "Photograph",
+        "artistNames": [
+            "J. Cole"
+        ],
+        "audioFeatures": {
+            "danceability": 0.691,
+            "energy": 0.487,
+            "key": 1,
+            "loudness": -6.416,
+            "mode": 1,
+            "speechiness": 0.268,
+            "acousticness": 0.0299,
+            "instrumentalness": 0,
+            "liveness": 0.0868,
+            "valence": 0.358,
+            "tempo": 104.98,
+            "type": "audio_features",
+            "id": "0bhnUFDQFCEHCBlsQfHnj5",
+            "uri": "spotify:track:0bhnUFDQFCEHCBlsQfHnj5",
+            "track_href": "https://api.spotify.com/v1/tracks/0bhnUFDQFCEHCBlsQfHnj5",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/0bhnUFDQFCEHCBlsQfHnj5",
+            "duration_ms": 218954,
+            "time_signature": 3
+        },
+        "genres": [
+            "conscious hip hop",
+            "hip hop",
+            "north carolina hip hop",
+            "rap"
+        ]
+    },
+    {
+        "name": "Baianá",
+        "artistNames": [
+            "Nia Archives"
+        ],
+        "audioFeatures": {
+            "danceability": 0.527,
+            "energy": 0.875,
+            "key": 2,
+            "loudness": -6.316,
+            "mode": 1,
+            "speechiness": 0.121,
+            "acousticness": 0.00217,
+            "instrumentalness": 0.539,
+            "liveness": 0.0837,
+            "valence": 0.377,
+            "tempo": 169.954,
+            "type": "audio_features",
+            "id": "7B0gxo0jQCy5Lk93RIODAC",
+            "uri": "spotify:track:7B0gxo0jQCy5Lk93RIODAC",
+            "track_href": "https://api.spotify.com/v1/tracks/7B0gxo0jQCy5Lk93RIODAC",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/7B0gxo0jQCy5Lk93RIODAC",
+            "duration_ms": 152559,
+            "time_signature": 4
+        },
+        "genres": [
+            "modern jungle",
+            "drum and bass"
+        ]
+    },
+    {
+        "name": "Noir Infection",
+        "artistNames": [
+            "cool sorcery"
+        ],
+        "audioFeatures": {
+            "danceability": 0.374,
+            "energy": 0.907,
+            "key": 9,
+            "loudness": -4.625,
+            "mode": 0,
+            "speechiness": 0.0661,
+            "acousticness": 0.185,
+            "instrumentalness": 0.708,
+            "liveness": 0.2,
+            "valence": 0.313,
+            "tempo": 96.993,
+            "type": "audio_features",
+            "id": "2g9VAMmZUVepx8Qfu8rVmQ",
+            "uri": "spotify:track:2g9VAMmZUVepx8Qfu8rVmQ",
+            "track_href": "https://api.spotify.com/v1/tracks/2g9VAMmZUVepx8Qfu8rVmQ",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/2g9VAMmZUVepx8Qfu8rVmQ",
+            "duration_ms": 389996,
+            "time_signature": 4
+        },
+        "genres": []
+    },
+    {
+        "name": "Photograph",
+        "artistNames": [
+            "Weezer"
+        ],
+        "audioFeatures": {
+            "danceability": 0.464,
+            "energy": 0.899,
+            "key": 9,
+            "loudness": -4.554,
+            "mode": 1,
+            "speechiness": 0.0459,
+            "acousticness": 0.0000933,
+            "instrumentalness": 0.00145,
+            "liveness": 0.395,
+            "valence": 0.404,
+            "tempo": 124.796,
+            "type": "audio_features",
+            "id": "4hA3OFMvHCFCK3TfJYdbif",
+            "uri": "spotify:track:4hA3OFMvHCFCK3TfJYdbif",
+            "track_href": "https://api.spotify.com/v1/tracks/4hA3OFMvHCFCK3TfJYdbif",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/4hA3OFMvHCFCK3TfJYdbif",
+            "duration_ms": 139093,
+            "time_signature": 4
+        },
+        "genres": [
+            "alternative rock",
+            "modern power pop",
+            "modern rock",
+            "permanent wave",
+            "rock",
+            "punk",
+            "emo",
+            "punk-pop",
+            "alternative and punk",
+            "pop/rock",
+            "alternative/indie rock",
+            "alternative pop/rock"
+        ]
+    },
+    {
+        "name": "Boys I Like",
+        "artistNames": [
+            "Gazebos"
+        ],
+        "audioFeatures": {
+            "danceability": 0.41,
+            "energy": 0.887,
+            "key": 9,
+            "loudness": -6.715,
+            "mode": 1,
+            "speechiness": 0.0483,
+            "acousticness": 0.000742,
+            "instrumentalness": 0.00281,
+            "liveness": 0.298,
+            "valence": 0.467,
+            "tempo": 109.326,
+            "type": "audio_features",
+            "id": "3Qdiyk5qMV81XZGwicBH4k",
+            "uri": "spotify:track:3Qdiyk5qMV81XZGwicBH4k",
+            "track_href": "https://api.spotify.com/v1/tracks/3Qdiyk5qMV81XZGwicBH4k",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/3Qdiyk5qMV81XZGwicBH4k",
+            "duration_ms": 336653,
+            "time_signature": 4
+        },
+        "genres": []
+    },
+    {
+        "name": "Slow Hot Death",
+        "artistNames": [
+            "Roselit Bone"
+        ],
+        "audioFeatures": {
+            "danceability": 0.227,
+            "energy": 0.774,
+            "key": 11,
+            "loudness": -5.543,
+            "mode": 1,
+            "speechiness": 0.0406,
+            "acousticness": 0.59,
+            "instrumentalness": 0.00917,
+            "liveness": 0.0404,
+            "valence": 0.491,
+            "tempo": 134.262,
+            "type": "audio_features",
+            "id": "5AvVJcEIpwXBNkDGx4nIza",
+            "uri": "spotify:track:5AvVJcEIpwXBNkDGx4nIza",
+            "track_href": "https://api.spotify.com/v1/tracks/5AvVJcEIpwXBNkDGx4nIza",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/5AvVJcEIpwXBNkDGx4nIza",
+            "duration_ms": 215007,
+            "time_signature": 4
+        },
+        "genres": [
+            "portland indie"
+        ]
+    },
+    {
+        "name": "Kelly",
+        "artistNames": [
+            "Laverne"
+        ],
+        "audioFeatures": {
+            "danceability": 0.572,
+            "energy": 0.542,
+            "key": 0,
+            "loudness": -7.816,
+            "mode": 1,
+            "speechiness": 0.07,
+            "acousticness": 0.105,
+            "instrumentalness": 0.838,
+            "liveness": 0.116,
+            "valence": 0.429,
+            "tempo": 94.689,
+            "type": "audio_features",
+            "id": "60cAO6Vjk9VEV2G1UeWHdd",
+            "uri": "spotify:track:60cAO6Vjk9VEV2G1UeWHdd",
+            "track_href": "https://api.spotify.com/v1/tracks/60cAO6Vjk9VEV2G1UeWHdd",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/60cAO6Vjk9VEV2G1UeWHdd",
+            "duration_ms": 240099,
+            "time_signature": 4
+        },
+        "genres": []
+    },
+    {
+        "name": "Existential Dread",
+        "artistNames": [
+            "Thundercat"
+        ],
+        "audioFeatures": {
+            "danceability": 0.782,
+            "energy": 0.428,
+            "key": 1,
+            "loudness": -12.751,
+            "mode": 1,
+            "speechiness": 0.0476,
+            "acousticness": 0.695,
+            "instrumentalness": 0.466,
+            "liveness": 0.12,
+            "valence": 0.535,
+            "tempo": 98.923,
+            "type": "audio_features",
+            "id": "2JwFuyHAm2iahd89lCks0J",
+            "uri": "spotify:track:2JwFuyHAm2iahd89lCks0J",
+            "track_href": "https://api.spotify.com/v1/tracks/2JwFuyHAm2iahd89lCks0J",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/2JwFuyHAm2iahd89lCks0J",
+            "duration_ms": 51950,
+            "time_signature": 4
+        },
+        "genres": [
+            "afrofuturism",
+            "escape room",
+            "indie soul"
+        ]
+    },
+    {
+        "name": "Nineteen Cats",
+        "artistNames": [
+            "Red Metafor"
+        ],
+        "audioFeatures": {
+            "danceability": 0.451,
+            "energy": 0.492,
+            "key": 7,
+            "loudness": -12.142,
+            "mode": 1,
+            "speechiness": 0.0323,
+            "acousticness": 0.544,
+            "instrumentalness": 0,
+            "liveness": 0.0659,
+            "valence": 0.602,
+            "tempo": 169.818,
+            "type": "audio_features",
+            "id": "3NKRwxLT2BguEmHPOYJjlk",
+            "uri": "spotify:track:3NKRwxLT2BguEmHPOYJjlk",
+            "track_href": "https://api.spotify.com/v1/tracks/3NKRwxLT2BguEmHPOYJjlk",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/3NKRwxLT2BguEmHPOYJjlk",
+            "duration_ms": 178319,
+            "time_signature": 4
+        },
+        "genres": []
+    },
+    {
+        "name": "Don't Think I Do",
+        "artistNames": [
+            "Queen Moo"
+        ],
+        "audioFeatures": {
+            "danceability": 0.661,
+            "energy": 0.503,
+            "key": 11,
+            "loudness": -8.939,
+            "mode": 1,
+            "speechiness": 0.189,
+            "acousticness": 0.0421,
+            "instrumentalness": 0,
+            "liveness": 0.236,
+            "valence": 0.514,
+            "tempo": 129.565,
+            "type": "audio_features",
+            "id": "0ygwqHa4oUNNjScMOVPhKx",
+            "uri": "spotify:track:0ygwqHa4oUNNjScMOVPhKx",
+            "track_href": "https://api.spotify.com/v1/tracks/0ygwqHa4oUNNjScMOVPhKx",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/0ygwqHa4oUNNjScMOVPhKx",
+            "duration_ms": 185057,
+            "time_signature": 4
+        },
+        "genres": [
+            "5th wave emo",
+            "connecticut indie",
+            "new england emo"
+        ]
+    },
+    {
+        "name": "Steam Train",
+        "artistNames": [
+            "Wild Wing"
+        ],
+        "audioFeatures": {
+            "danceability": 0.349,
+            "energy": 0.58,
+            "key": 8,
+            "loudness": -7.182,
+            "mode": 1,
+            "speechiness": 0.0341,
+            "acousticness": 0.324,
+            "instrumentalness": 0.00774,
+            "liveness": 0.104,
+            "valence": 0.579,
+            "tempo": 129.359,
+            "type": "audio_features",
+            "id": "0yIdIv8tkUuwRfMSS66bwS",
+            "uri": "spotify:track:0yIdIv8tkUuwRfMSS66bwS",
+            "track_href": "https://api.spotify.com/v1/tracks/0yIdIv8tkUuwRfMSS66bwS",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/0yIdIv8tkUuwRfMSS66bwS",
+            "duration_ms": 180448,
+            "time_signature": 4
+        },
+        "genres": []
+    },
+    {
+        "name": "Still Not Sad - Audiotree Live Version",
+        "artistNames": [
+            "Michael Rault",
+            "Audiotree"
+        ],
+        "audioFeatures": {
+            "danceability": 0.458,
+            "energy": 0.661,
+            "key": 0,
+            "loudness": -9.4,
+            "mode": 1,
+            "speechiness": 0.0407,
+            "acousticness": 0.0111,
+            "instrumentalness": 0.139,
+            "liveness": 0.122,
+            "valence": 0.554,
+            "tempo": 107.907,
+            "type": "audio_features",
+            "id": "6ToBe9BVLv9vlk1z5Qsat4",
+            "uri": "spotify:track:6ToBe9BVLv9vlk1z5Qsat4",
+            "track_href": "https://api.spotify.com/v1/tracks/6ToBe9BVLv9vlk1z5Qsat4",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/6ToBe9BVLv9vlk1z5Qsat4",
+            "duration_ms": 176695,
+            "time_signature": 4
+        },
+        "genres": [
+            "edmonton indie"
+        ]
+    },
+    {
+        "name": "I'm Gonna Love Her",
+        "artistNames": [
+            "Aweful Kanawful"
+        ],
+        "audioFeatures": {
+            "danceability": 0.597,
+            "energy": 0.712,
+            "key": 9,
+            "loudness": -5.728,
+            "mode": 1,
+            "speechiness": 0.0421,
+            "acousticness": 0.172,
+            "instrumentalness": 0.0000355,
+            "liveness": 0.308,
+            "valence": 0.649,
+            "tempo": 113.112,
+            "type": "audio_features",
+            "id": "0YNApv3tWxT5sGRDiLXfmk",
+            "uri": "spotify:track:0YNApv3tWxT5sGRDiLXfmk",
+            "track_href": "https://api.spotify.com/v1/tracks/0YNApv3tWxT5sGRDiLXfmk",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/0YNApv3tWxT5sGRDiLXfmk",
+            "duration_ms": 214408,
+            "time_signature": 4
+        },
+        "genres": []
+    },
+    {
+        "name": "Dog Days",
+        "artistNames": [
+            "Ring Finger No Pinky"
+        ],
+        "audioFeatures": {
+            "danceability": 0.485,
+            "energy": 0.7,
+            "key": 6,
+            "loudness": -7.173,
+            "mode": 0,
+            "speechiness": 0.0333,
+            "acousticness": 0.00336,
+            "instrumentalness": 0,
+            "liveness": 0.144,
+            "valence": 0.667,
+            "tempo": 184.197,
+            "type": "audio_features",
+            "id": "2zARoEK5pdjXIvxaFL9jT8",
+            "uri": "spotify:track:2zARoEK5pdjXIvxaFL9jT8",
+            "track_href": "https://api.spotify.com/v1/tracks/2zARoEK5pdjXIvxaFL9jT8",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/2zARoEK5pdjXIvxaFL9jT8",
+            "duration_ms": 165000,
+            "time_signature": 1
+        },
+        "genres": []
+    },
+    {
+        "name": "Fundamentals",
+        "artistNames": [
+            "Matter Mos",
+            "Rafi Muhammad",
+            "Kenny Gabriel",
+            "Ankadiov Surban"
+        ],
+        "audioFeatures": {
+            "danceability": 0.584,
+            "energy": 0.519,
+            "key": 0,
+            "loudness": -12.364,
+            "mode": 1,
+            "speechiness": 0.165,
+            "acousticness": 0.219,
+            "instrumentalness": 0.000153,
+            "liveness": 0.0855,
+            "valence": 0.621,
+            "tempo": 174.004,
+            "type": "audio_features",
+            "id": "2Am5TLz8QvZbBrnk5RTcAw",
+            "uri": "spotify:track:2Am5TLz8QvZbBrnk5RTcAw",
+            "track_href": "https://api.spotify.com/v1/tracks/2Am5TLz8QvZbBrnk5RTcAw",
+            "analysis_url": "https://api.spotify.com/v1/audio-analysis/2Am5TLz8QvZbBrnk5RTcAw",
+            "duration_ms": 231936,
+            "time_signature": 4
+        },
+        "genres": [
+            "indonesian hip hop",
+            "indonesian underground hip hop"
+        ]
+    }
+]
