@@ -1,5 +1,5 @@
 export default class GenreSort {
-  sorted(data, separate_artists = false) {
+  async sorted(data, separate_artists = false) {
     let newTrackOrder;
 
     // Add to newTrackOrder the tracks that share the fewest genres with each other,
@@ -35,7 +35,7 @@ export default class GenreSort {
   }
 
   async retrieveData(track) {
-      await track.retrieveGenres();
+    await track.retrieveGenres();
   }
 
   getDisplayText(track) {
@@ -165,7 +165,7 @@ export default class GenreSort {
     // If bestMatchIndex is still undefined, try with separate_artists = false if that is what
     // caused it. Otherwise, set it to 0.
     if (bestMatchIndex === undefined) {
-      if (separate_artists == true) {
+      if (separate_artists) {
         bestMatchIndex = this.findMedianSimilarTrack(
           track1,
           track2,

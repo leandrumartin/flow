@@ -1,49 +1,30 @@
+import { pipeline, env } from "https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0";
+
+env.allowLocalModels = false;
 export default class AISort {
-  sorted(data, separate_artists = false) {
-    let newTrackOrder;
+  async sorted(data, separate_artists = false) {
+    const extractor = await pipeline("feature-extraction", "Xenova/jina-embeddings-v2-small-en"); // Using this model because it's relatively small at ~32M params
+    console.log(JSON.stringify(data[0]))
+    const output = await extractor(JSON.stringify(data[0]))
+    console.log(output)
 
-    // Add to newTrackOrder the tracks that share the fewest genres with each other,
-    // and remove from data
-    newTrackOrder = this.getLeastSimilarTracks(data);
-    newTrackOrder.forEach((track) => {
-      let dataIndex = data.findIndex((dataTrack) => dataTrack === track);
-      data.splice(dataIndex, 1);
-    });
-
-    // Until data is empty, get the pairs of consecutive tracks in newTrackOrder
-    // that share the fewest genres, and insert between them whichever track matches
-    // them both best.
-    while (data.length > 0) {
-      let track1Index = this.findLeastSimilarConsecutive(newTrackOrder);
-      let track1 = newTrackOrder[track1Index];
-      let track2Index = track1Index + 1;
-      let track2 = newTrackOrder[track2Index];
-
-      let trackToInsertIndex = this.findMedianSimilarTrack(
-        track1,
-        track2,
-        data,
-        separate_artists
-      );
-      let trackToInsert = data[trackToInsertIndex];
-
-      newTrackOrder.splice(track2Index, 0, trackToInsert);
-      data.splice(trackToInsertIndex, 1);
-    }
-
-    return newTrackOrder;
+    return data
   }
 
   async retrieveData(track) {
-      await track.retrieveGenres();
-      await track.retrieveAudioFeatures();
+    await track.retrieveGenres();
+    await track.retrieveAudioFeatures();
   }
 
   getDisplayText(track) {
     if (track.genres === null || track.audioFeatures === null) {
       return 'Retrieving data...';
     } else {
-      return 'Genres: ' + track.genres.join(', ');
+      return(
+        `Energy: ${track.audioFeatures.energy}, 
+        Valence: ${track.audioFeatures.valence},
+        Genres: ${track.genres.slice(0, 3).join(', ')}`
+      );
     }
   }
 
@@ -164,7 +145,7 @@ export default class AISort {
     // If bestMatchIndex is still undefined, try with separate_artists = false if that is what
     // caused it. Otherwise, set it to 0.
     if (bestMatchIndex === undefined) {
-      if (separate_artists == true) {
+      if (separate_artists) {
         bestMatchIndex = this.findMedianSimilarTrack(
           track1,
           track2,
