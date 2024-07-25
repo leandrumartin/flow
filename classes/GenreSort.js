@@ -4,7 +4,7 @@ export default class GenreSort {
 
     // Add to newTrackOrder the tracks that share the fewest genres with each other,
     // and remove from data
-    newTrackOrder = this.getLeastSimilarTracks(data);
+    newTrackOrder = this._getLeastSimilarTracks(data);
     newTrackOrder.forEach((track) => {
       let dataIndex = data.findIndex((dataTrack) => dataTrack === track);
       data.splice(dataIndex, 1);
@@ -14,12 +14,12 @@ export default class GenreSort {
     // that share the fewest genres, and insert between them whichever track matches
     // them both best.
     while (data.length > 0) {
-      let track1Index = this.findLeastSimilarConsecutive(newTrackOrder);
+      let track1Index = this._findLeastSimilarConsecutive(newTrackOrder);
       let track1 = newTrackOrder[track1Index];
       let track2Index = track1Index + 1;
       let track2 = newTrackOrder[track2Index];
 
-      let trackToInsertIndex = this.findMedianSimilarTrack(
+      let trackToInsertIndex = this._findMedianSimilarTrack(
         track1,
         track2,
         data,
@@ -50,7 +50,7 @@ export default class GenreSort {
 
   // Helper functions
 
-  getNumSharedGenres(track1, track2) {
+  _getNumSharedGenres(track1, track2) {
     let sharedGenres = track1.genres.filter((genre) => {
       return track2.genres.includes(genre);
     });
@@ -63,7 +63,7 @@ export default class GenreSort {
    * @param {Track[]} data
    * @returns {Number[]} Array of the indices in the inputted array of the tracks whose lowest nhumber of genre matches with any other track is the minimum out of the data.
    */
-  getLeastSimilarTracks(data) {
+  _getLeastSimilarTracks(data) {
     let minSharedGenres = Infinity;
     let retVal = [];
 
@@ -78,7 +78,7 @@ export default class GenreSort {
           return;
         }
 
-        let numSharedGenres = this.getNumSharedGenres(track1, track2);
+        let numSharedGenres = this._getNumSharedGenres(track1, track2);
 
         // Set retVal to [track1, track2] if they share the fewest genres out of any pair so far
         if (numSharedGenres < minSharedGenres) {
@@ -94,7 +94,7 @@ export default class GenreSort {
     data.forEach((track1) => {
       if (
         retVal.every((track2) => {
-          let numSharedGenres = this.getNumSharedGenres(track1, track2);
+          let numSharedGenres = this._getNumSharedGenres(track1, track2);
           return numSharedGenres === minSharedGenres;
         })
       ) {
@@ -110,7 +110,7 @@ export default class GenreSort {
    * @param {Track[]} data
    * @returns {Number} Index of the first track in the pair.
    */
-  findLeastSimilarConsecutive(data) {
+  _findLeastSimilarConsecutive(data) {
     let fewestMatches = Infinity;
     let indexOfFirst;
 
@@ -122,7 +122,7 @@ export default class GenreSort {
       }
 
       let track2 = data[track1Index + 1];
-      let numMatches = this.getNumSharedGenres(track1, track2);
+      let numMatches = this._getNumSharedGenres(track1, track2);
 
       // Set indexOfFirst track1Index if they share the fewest genres out of any pair so far
       if (numMatches < fewestMatches) {
@@ -133,7 +133,7 @@ export default class GenreSort {
     return indexOfFirst;
   }
 
-  findMedianSimilarTrack(
+  _findMedianSimilarTrack(
     track1,
     track2,
     matchAgainst,
@@ -145,8 +145,8 @@ export default class GenreSort {
     // For each track in matchAgainst, get the average of its number of shared genres with
     // track1 and with track2. If higher than the current best, replace that.
     matchAgainst.forEach((testTrack, index) => {
-      let numMatches1 = this.getNumSharedGenres(track1, testTrack);
-      let numMatches2 = this.getNumSharedGenres(track2, testTrack);
+      let numMatches1 = this._getNumSharedGenres(track1, testTrack);
+      let numMatches2 = this._getNumSharedGenres(track2, testTrack);
 
       // Disallow track from being selected as the median if separate_artists is true and
       // it shares primary artists with one of the tracks it is being compared to.
@@ -166,7 +166,7 @@ export default class GenreSort {
     // caused it. Otherwise, set it to 0.
     if (bestMatchIndex === undefined) {
       if (separate_artists) {
-        bestMatchIndex = this.findMedianSimilarTrack(
+        bestMatchIndex = this._findMedianSimilarTrack(
           track1,
           track2,
           matchAgainst,
