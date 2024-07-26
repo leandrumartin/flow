@@ -75,9 +75,7 @@ document.querySelector("#submit").onclick = () => {
         displayOldTracks(trackList, sort);
 
         // Get necessary track data depending on what kind of sort is being done
-        await trackList.retrieveData(sort, updateDataDisplay);
-
-        console.log(getAIData(trackList.data));
+        await trackList.retrieveData(sort, updateDataDisplay)
 
         // Sort and display new order of tracks
         let separate_artists =
@@ -155,28 +153,3 @@ document.querySelector("#save_button").onclick = async () => {
       console.error(err);
     });
 };
-
-function getAIData(tracklist) {
-  let aiData = [];
-  for (let track of tracklist) {
-    aiData.push({
-      name: track.name,
-      artistNames: track.artistNames,
-      audioFeatures: {
-        "danceability": track.audioFeatures.danceability,
-        "energy": track.audioFeatures.energy,
-        "key": track.audioFeatures.key,
-        "loudness": track.audioFeatures.loudness,
-        "mode": track.audioFeatures.mode,
-        "speechiness": track.audioFeatures.speechiness,
-        "acousticness": track.audioFeatures.acousticness,
-        "instrumentalness": track.audioFeatures.instrumentalness,
-        "liveness": track.audioFeatures.liveness,
-        "valence": track.audioFeatures.valence,
-        "tempo": track.audioFeatures.tempo,
-      },
-      genres: track.genres,
-    });
-  }
-  return aiData;
-}

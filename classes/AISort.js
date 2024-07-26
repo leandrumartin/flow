@@ -1,9 +1,5 @@
-import { pipeline, env } from "https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0";
-
-env.allowLocalModels = false;
 export default class AISort {
   async sorted(data, separate_artists = false) {
-    await this._getEmbeddings(data);
     let newTrackOrder;
 
     // Add to newTrackOrder the tracks that share the fewest genres with each other,
@@ -38,19 +34,10 @@ export default class AISort {
     return newTrackOrder;
   }
 
-  async _getEmbeddings(data) {
-    const extractor = await pipeline("feature-extraction", "Xenova/jina-embeddings-v2-small-en", ); // Using this model because it's relatively small at ~32M params
-    console.log(JSON.stringify(data[0]))
-    for (let track of data) {
-      let extraction = await extractor(JSON.stringify(track))
-      track.embedding = extraction.data
-      console.log(track.embedding)
-    }
-  }
-
   async retrieveData(track) {
     await track.retrieveGenres();
     await track.retrieveAudioFeatures();
+    await track.retrieveEmbedding();
   }
 
   getDisplayText(track) {

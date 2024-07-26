@@ -1,4 +1,5 @@
 import { SpotifyWebApi } from '../spotify-web-api.js';
+import EmbeddingExtractor from "./EmbeddingExtractor.js";
 
 // Create Spotify API object
 var spotifyApi = new SpotifyWebApi();
@@ -40,6 +41,18 @@ export default class Track {
   retrieveAudioFeatures = async () => {
     this.audioFeatures = await spotifyApi.getAudioFeaturesForTrack(this.id);
   };
+
+  retrieveEmbedding = async () => {
+    const extractor = await EmbeddingExtractor.getInstance();
+    let extraction = await extractor(JSON.stringify({
+      "name": this.name,
+      "artistNames": this.artistNames,
+      "album": this.album,
+      "genres": this.genres,
+      "audioFeatures": this.audioFeatures,
+    }))
+    this.embedding = extraction.data
+  }
 
   deduplicate = (list) => {
     let retVal = [];
