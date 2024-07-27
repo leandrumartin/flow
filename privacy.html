@@ -9,7 +9,7 @@
 <body>
   <h1>Privacy</h1>
   <p>This website only accesses the data of whatever playlist you give it, and your basic profile data in order to know where to save your playlist.</p>
-  <p>No data is sent elsewhere. The only data stored is necessary to keep you logged in, and is stored in your local browser storage.</p>
+  <p>The only data stored on this site is the minimum necessary to keep you logged in, which is stored in your local browser storage.</p>
   <input type="button" id="clear_data" value="Clear locally stored data from Flow" />
   <script>
     document.querySelector('#clear_data').onclick = () => {
@@ -18,5 +18,7 @@
     }
   </script>
   <p>To disconnect Flow from your Spotify account, go to the Apps section of Spotify's account settings at <a href="https://www.spotify.com/account/apps/">spotify.com/account/apps</a>.</p>
+  <p>The only data sent to external websites is information about the tracks contained in a playlist. Track IDs are sent to <a href="https://musicbrainz.org/">MusicBrainz</a> for genre retrieval, and track titles, artists, genres, and audio features are sent to
+    <a href="https://huggingface.co">Hugging Face</a> for the AI sorting mechanism.</p>
 </body>
 </html>
