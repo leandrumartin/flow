@@ -36,8 +36,8 @@ export default class TrackList {
     }
   }
 
-  sort(sort, separate_artists = false) {
-    this.data = sort.sorted(this.data, separate_artists);
+  async sort(sort, separate_artists = false) {
+    this.data = await sort.sorted(this.data, separate_artists);
   }
 
   getDisplayText(sort, trackNum) {

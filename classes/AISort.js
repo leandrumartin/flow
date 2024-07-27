@@ -1,4 +1,4 @@
-export default class GenreSort {
+export default class AISort {
   async sorted(data, separate_artists = false) {
     let newTrackOrder;
 
@@ -20,10 +20,10 @@ export default class GenreSort {
       let track2 = newTrackOrder[track2Index];
 
       let trackToInsertIndex = this._findMedianSimilarTrack(
-        track1,
-        track2,
-        data,
-        separate_artists
+          track1,
+          track2,
+          data,
+          separate_artists
       );
       let trackToInsert = data[trackToInsertIndex];
 
@@ -36,66 +36,58 @@ export default class GenreSort {
 
   async retrieveData(track) {
     await track.retrieveGenres();
+    await track.retrieveAudioFeatures();
+    await track.retrieveEmbedding();
   }
 
   getDisplayText(track) {
-    if (track.genres === null) {
-      return 'Retrieving genres...';
-    } else if (track.genres.length === 0) {
-      return 'No genres found.';
+    if (track.genres === null || track.audioFeatures === null) {
+      return 'Retrieving data...';
     } else {
-      return 'Genres: ' + track.genres.join(', ');
+      return(
+        `Energy: ${track.audioFeatures.energy},\n
+        Valence: ${track.audioFeatures.valence},\n
+        Genres: ${track.genres.slice(0, 3).join(', ')}`
+      );
     }
   }
 
   // Helper functions
-
-  _getNumSharedGenres(track1, track2) {
-    let sharedGenres = track1.genres.filter((genre) => {
-      return track2.genres.includes(genre);
-    });
-
-    return sharedGenres.length;
-  }
-
   /**
    * Gets a list of tracks in the input that all share the fewest possible genres with each other.
    * @param {Track[]} data
    * @returns {Number[]} Array of the indices in the inputted array of the tracks whose lowest nhumber of genre matches with any other track is the minimum out of the data.
    */
   _getLeastSimilarTracks(data) {
-    let minSharedGenres = Infinity;
+    let minSimilarity = Infinity;
     let retVal = [];
 
     // Test every track against every other track to find the pair of least similar tracks
     data.forEach((track1) => {
-      if (track1.genres.length === 0) {
-        return;
-      }
       data.forEach((track2) => {
         // Continue through loop if comparing track to itself
-        if (track1 === track2 || track2.genres.length === 0) {
+        if (track1 === track2) {
           return;
         }
 
-        let numSharedGenres = this._getNumSharedGenres(track1, track2);
+        let similarity = this._getCosineSimilarity(track1, track2);
 
         // Set retVal to [track1, track2] if they share the fewest genres out of any pair so far
-        if (numSharedGenres < minSharedGenres) {
-          minSharedGenres = numSharedGenres;
+        if (similarity < minSimilarity) {
+          minSimilarity = similarity;
           retVal = [track1, track2];
         }
       });
     });
 
     // At this point we have an array of 2 tracks to return. See if there are any other tracks
-    // in the inputted data that also share fewestMatches genres with all of the tracks in the
+    // in the inputted data that also share minSimilarity with all of the tracks in the
     // indices[] array.
     data.forEach((track1) => {
       if (
         retVal.every((track2) => {
-          let numSharedGenres = this._getNumSharedGenres(track1, track2);
-          return numSharedGenres === minSharedGenres;
+          let similarity = this._getCosineSimilarity(track1, track2);
+          return similarity === minSimilarity;
         })
       ) {
         retVal.push(track1);
@@ -106,15 +98,15 @@ export default class GenreSort {
   }
 
   /**
-   * Finds the two consecutive tracks in the input data that share the fewest genres with each other.
+   * Finds the two consecutive tracks in the input data that are least similar to each other.
    * @param {Track[]} data
    * @returns {Number} Index of the first track in the pair.
    */
   _findLeastSimilarConsecutive(data) {
-    let fewestMatches = Infinity;
+    let leastSimilarity = Infinity;
     let indexOfFirst;
 
-    // Test every track against its sucessor in the data array
+    // Test every track against its successor in the data array
     data.forEach((track1, track1Index) => {
       // Continue through loop if comparing track to itself
       if (track1Index === data.length - 1) {
@@ -122,11 +114,11 @@ export default class GenreSort {
       }
 
       let track2 = data[track1Index + 1];
-      let numMatches = this._getNumSharedGenres(track1, track2);
+      let similarity = this._getCosineSimilarity(track1, track2);
 
-      // Set indexOfFirst track1Index if they share the fewest genres out of any pair so far
-      if (numMatches < fewestMatches) {
-        fewestMatches = numMatches;
+      // Set indexOfFirst to track1Index if they have the lowest similarity out of any pair so far
+      if (similarity < leastSimilarity) {
+        leastSimilarity = similarity;
         indexOfFirst = track1Index;
       }
     });
@@ -139,14 +131,14 @@ export default class GenreSort {
     matchAgainst,
     separate_artists = false
   ) {
-    let mostAvgMatches = 0;
+    let greatestSimilarity = 0;
     let bestMatchIndex;
 
-    // For each track in matchAgainst, get the average of its number of shared genres with
+    // For each track in matchAgainst, get the average of its similarity to
     // track1 and with track2. If higher than the current best, replace that.
     matchAgainst.forEach((testTrack, index) => {
-      let numMatches1 = this._getNumSharedGenres(track1, testTrack);
-      let numMatches2 = this._getNumSharedGenres(track2, testTrack);
+      let similarity1 = this._getCosineSimilarity(track1, testTrack);
+      let similarity2 = this._getCosineSimilarity(track2, testTrack);
 
       // Disallow track from being selected as the median if separate_artists is true and
       // it shares primary artists with one of the tracks it is being compared to.
@@ -155,9 +147,9 @@ export default class GenreSort {
         testTrack.artistIds[0] === track2.artistIds[0];
       let isTrackAllowed = !separate_artists || !sharesBothArtists;
 
-      let avgMatches = (numMatches1 + numMatches2) / 2;
-      if (avgMatches > mostAvgMatches && isTrackAllowed) {
-        mostAvgMatches = avgMatches;
+      let avgSimilarity = (similarity1 + similarity2) / 2;
+      if (avgSimilarity > greatestSimilarity && isTrackAllowed) {
+        greatestSimilarity = avgSimilarity;
         bestMatchIndex = index;
       }
     });
@@ -178,5 +170,20 @@ export default class GenreSort {
     }
 
     return bestMatchIndex;
+  }
+
+  _getCosineSimilarity(track1, track2) {
+    let dotProduct = 0;
+    let magnitude1 = 0;
+    let magnitude2 = 0;
+    for (let i = 0; i < Math.min(track1.embedding.length, track2.embedding.length); i++) {
+      dotProduct += track1.embedding[i] * track2.embedding[i];
+      magnitude1 += track1.embedding[i] ** 2;
+      magnitude2 += track2.embedding[i] ** 2;
+    }
+    magnitude1 = Math.sqrt(magnitude1);
+    magnitude2 = Math.sqrt(magnitude2);
+
+    return dotProduct / (magnitude1 * magnitude2);
   }
 }

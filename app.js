@@ -75,12 +75,12 @@ document.querySelector("#submit").onclick = () => {
         displayOldTracks(trackList, sort);
 
         // Get necessary track data depending on what kind of sort is being done
-        await trackList.retrieveData(sort, updateDataDisplay);
+        await trackList.retrieveData(sort, updateDataDisplay)
 
         // Sort and display new order of tracks
         let separate_artists =
           document.querySelector("#separate_artists").value;
-        trackList.sort(sort, separate_artists);
+        await trackList.sort(sort, separate_artists);
         // trackList.sortByGenre(separate_artists);
         displayNewTracks(trackList, sort);
 

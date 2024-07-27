@@ -1,5 +1,5 @@
 export default class MoodSort {
-  sorted(data, separate_artists = false) {
+  async sorted(data, separate_artists = false) {
     // Sort tracks by valence
     data.sort((a, b) => {
       return a.audioFeatures.valence - b.audioFeatures.valence;
