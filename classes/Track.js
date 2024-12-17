@@ -36,6 +36,19 @@ export default class Track {
     retVal = retVal.concat(await this.getMusicBrainzGenres());
     retVal = this.deduplicate(retVal);
     this.genres = retVal;
+
+    /*
+    Split each genre into multiple genres for each word (but don't display to user).
+    This ensures that if Track A has genre "jazz" and Track B has genre "jazz fusion", then
+    they will be considered to share the genre "jazz," even if Track B didn't originally have
+    the genre "jazz" in its genres array.
+    */
+    this.genresHidden = [];
+    retVal.forEach((item) => {
+      this.genresHidden.push(item);
+      this.genresHidden.push(item.split(' '));
+    });
+    this.genresHidden = this.deduplicate(this.genresHidden.flat());
   };
 
   retrieveAudioFeatures = async () => {

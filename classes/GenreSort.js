@@ -51,8 +51,8 @@ export default class GenreSort {
   // Helper functions
 
   _getNumSharedGenres(track1, track2) {
-    let sharedGenres = track1.genres.filter((genre) => {
-      return track2.genres.includes(genre);
+    let sharedGenres = track1.genresHidden.filter((genre) => {
+      return track2.genresHidden.includes(genre);
     });
 
     return sharedGenres.length;
