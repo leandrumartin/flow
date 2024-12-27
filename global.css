@@ -36,3 +36,23 @@ input[type='button']:hover {
 input[type='button']:disabled {
   background-color: gray;
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: white;
+    background-color: #121212;
+  }
+
+  input[type='button'] {
+    color: black;
+  }
+
+  input[type='button']:hover {
+    border-color: white;
+  }
+
+  input[type='text'] {
+    background-color: #2a2a2a;
+    color: white;
+  }
+}
