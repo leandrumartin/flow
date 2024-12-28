@@ -1,9 +1,8 @@
-import { SpotifyWebApi } from '../spotify-web-api.js';
 import EmbeddingExtractor from "./EmbeddingExtractor.js";
+import APISingleton from "./APISingleton.js";
 
 // Create Spotify API object
-var spotifyApi = new SpotifyWebApi();
-spotifyApi.setAccessToken(localStorage.getItem('access-token'));
+const spotifyApi = new APISingleton();
 
 export default class Track {
   constructor(
