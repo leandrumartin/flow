@@ -4,6 +4,9 @@ import APISingleton from "./APISingleton.js";
 // Create Spotify API object
 const spotifyApi = new APISingleton();
 
+/**
+ * Class representing a track.
+ */
 export default class Track {
   constructor(
     id,
@@ -29,10 +32,14 @@ export default class Track {
     this.audioFeatures = audioFeatures;
   }
 
+  /**
+   * Retrieve genres for the track from Spotify and MusicBrainz.
+   * @returns {Promise<void>}
+   */
   retrieveGenres = async () => {
     let retVal = [];
-    retVal = retVal.concat(await this.getSpotifyGenres());
-    retVal = retVal.concat(await this.getMusicBrainzGenres());
+    retVal = retVal.concat(await this._getSpotifyGenres());
+    retVal = retVal.concat(await this._getMusicBrainzGenres());
     retVal = this.deduplicate(retVal);
     this.genres = retVal;
 
@@ -50,10 +57,18 @@ export default class Track {
     this.genresHidden = this.deduplicate(this.genresHidden.flat());
   };
 
+  /**
+   * Retrieve audio features for the track.
+   * @returns {Promise<void>}
+   */
   retrieveAudioFeatures = async () => {
     this.audioFeatures = await spotifyApi.getAudioFeaturesForTrack(this.id);
   };
 
+  /**
+   * Retrieve vector embedding for the track.
+   * @returns {Promise<void>}
+   */
   retrieveEmbedding = async () => {
     const extractor = await EmbeddingExtractor.getInstance();
     let extraction = await extractor(JSON.stringify({
@@ -66,6 +81,11 @@ export default class Track {
     this.embedding = extraction.data
   }
 
+  /**
+   * Remove duplicates from a list.
+   * @param list
+   * @returns {*[]}
+   */
   deduplicate = (list) => {
     let retVal = [];
     list.forEach((item) => {
@@ -76,7 +96,12 @@ export default class Track {
     return retVal;
   };
 
-  getSpotifyGenres = async () => {
+  /**
+   * Retrieve genres for the track from Spotify.
+   * @returns {Promise<FlatArray<*, 1>[]>}
+   * @private
+   */
+  _getSpotifyGenres = async () => {
     let artists = await spotifyApi.getArtists(this.artistIds);
     let genres = artists.artists.map((artist) => {
       return artist.genres;
@@ -86,8 +111,12 @@ export default class Track {
     return genres;
   };
 
-  getMusicBrainzGenres = async () => {
-    // Get track tags from MusicBrainz
+  /**
+   * Retrieve genres from MusicBrainz.
+   * @returns {Promise<unknown>}
+   * @private
+   */
+  _getMusicBrainzGenres = async () => {
     let myPromise = new Promise((resolve) => {
       setTimeout(() => {
         let XMLRequest = new XMLHttpRequest();
@@ -106,7 +135,7 @@ export default class Track {
         XMLRequest.onload = () => {
           if (XMLRequest.status === 200) {
             let track = JSON.parse(XMLRequest.response);
-            let genres = this.getMusicBrainzTags(track);
+            let genres = this._getMusicBrainzTags(track);
             resolve(genres);
           }
         };
@@ -122,7 +151,13 @@ export default class Track {
     return myPromise;
   };
 
-  getMusicBrainzTags = (track) => {
+  /**
+   * Extract genres from MusicBrainz track data.
+   * @param track
+   * @returns {*[]}
+   * @private
+   */
+  _getMusicBrainzTags = (track) => {
     let genres = [];
 
     for (let recording of track.recordings) {

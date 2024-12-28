@@ -1,10 +1,14 @@
+/**
+ * Class for creating a basic display for a playlist.
+ */
 export default class PlaylistDisplay {
   constructor(trackList) {
     this.trackList = trackList;
   }
 
   /**
-   * Creates a basic display for the playlist, with each track's name, artist names, art, and genre list.
+   * Create a basic display for the playlist, with each track's name, artist names, art, and genre list.
+   * @param {GenreSort | AISort | MoodSort} sort - Sort object to use for getting display text.
    * @returns {DocumentFragment} DocumentFragment object with a <div> for each track.
    */
   getDisplay = (sort) => {

@@ -1,4 +1,13 @@
+/**
+ * Class that sorts an array of Track objects based on similarity of vector embeddings.
+ */
 export default class AISort {
+  /**
+   * Sort the input data based on the cosine similarity of the vector embeddings of the tracks.
+   * @param data {Track[]} Tracks to be sorted
+   * @param separate_artists {boolean} Whether to attempt to separate tracks by the same artist
+   * @returns {Promise<Track[]>} Sorted tracks
+   */
   async sorted(data, separate_artists = false) {
     let newTrackOrder;
 
@@ -34,12 +43,21 @@ export default class AISort {
     return newTrackOrder;
   }
 
+  /**
+   * Retrieve the necessary data for the input track.
+   * @param track {Track} Track to retrieve data for
+   */
   async retrieveData(track) {
     await track.retrieveGenres();
     await track.retrieveAudioFeatures();
     await track.retrieveEmbedding();
   }
 
+  /**
+   * Get the text to display for the input track.
+   * @param track {Track} Track to get display text for
+   * @returns {string} Display text for the input track. Shows energy, valence, and genres.
+   */
   getDisplayText(track) {
     if (track.genres === null || track.audioFeatures === null) {
       return 'Retrieving data...';
@@ -54,9 +72,10 @@ export default class AISort {
 
   // Helper functions
   /**
-   * Gets a list of tracks in the input that all share the fewest possible genres with each other.
+   * Get a list of tracks in the input that all share the fewest possible genres with each other.
    * @param {Track[]} data
-   * @returns {Number[]} Array of the indices in the inputted array of the tracks whose lowest nhumber of genre matches with any other track is the minimum out of the data.
+   * @returns {Number[]} Array of the indices in the inputted array of the tracks whose lowest number of genre matches with any other track is the minimum out of the data.
+   * @private
    */
   _getLeastSimilarTracks(data) {
     let minSimilarity = Infinity;
@@ -98,9 +117,10 @@ export default class AISort {
   }
 
   /**
-   * Finds the two consecutive tracks in the input data that are least similar to each other.
+   * Find the two consecutive tracks in the input data that are least similar to each other.
    * @param {Track[]} data
    * @returns {Number} Index of the first track in the pair.
+   * @private
    */
   _findLeastSimilarConsecutive(data) {
     let leastSimilarity = Infinity;
@@ -125,6 +145,15 @@ export default class AISort {
     return indexOfFirst;
   }
 
+  /**
+   * Find the track in matchAgainst that is most similar to both track1 and track2.
+   * @param track1 {Track} First track to compare
+   * @param track2 {Track} Second track to compare
+   * @param matchAgainst {Track[]} List of tracks to compare to track1 and track2
+   * @param separate_artists {boolean} Whether to attempt to separate tracks by the same artist
+   * @returns {number} Index of the most similar track in matchAgainst
+   * @private
+   */
   _findMedianSimilarTrack(
     track1,
     track2,
@@ -172,6 +201,13 @@ export default class AISort {
     return bestMatchIndex;
   }
 
+  /**
+   * Get the cosine similarity of the vector embeddings of two tracks.
+   * @param track1 First track to compare.
+   * @param track2 Second track to compare.
+   * @returns {number} Cosine similarity of the two tracks' embeddings.
+   * @private
+   */
   _getCosineSimilarity(track1, track2) {
     let dotProduct = 0;
     let magnitude1 = 0;
