@@ -2,6 +2,9 @@ import { pipeline, env } from "https://cdn.jsdelivr.net/npm/@xenova/transformers
 
 env.allowLocalModels = false;
 
+/**
+ * Class to handle the extraction of embeddings from a track.
+ */
 export default class EmbeddingExtractor {
     static #instance = null;
 

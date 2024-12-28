@@ -1,4 +1,13 @@
+/**
+ * Class that sorts an array of Track objects based on valence and energy.
+ */
 export default class MoodSort {
+  /**
+   * Sort the input data based on the valence and energy of the tracks.
+   * @param data {Track[]} Tracks to be sorted
+   * @param separate_artists {boolean} Whether to attempt to separate tracks by the same artist
+   * @returns {Promise<Track[]>} Sorted tracks
+   */
   async sorted(data, separate_artists = false) {
     // Sort tracks by valence
     data.sort((a, b) => {
@@ -82,10 +91,19 @@ export default class MoodSort {
     return data;
   }
 
+  /**
+   * Retrieve the necessary data for the input track.
+   * @param track {Track} Track to retrieve data for
+   */
   async retrieveData(track) {
     await track.retrieveAudioFeatures();
   }
 
+  /**
+   * Get the text to display for the input track.
+   * @param track {Track} Track to get display text for
+   * @returns {string} Display text for the input track. Shows energy and valence.
+   */
   getDisplayText(track) {
     if (track.audioFeatures === null) {
       return "Retrieving audio features...";

@@ -1,4 +1,13 @@
+/**
+ * Class that sorts an array of Track objects based on genres shared between tracks..
+ */
 export default class GenreSort {
+  /**
+   * Sort the input data based on the genres shared between tracks.
+   * @param data {Track[]} Tracks to be sorted
+   * @param separate_artists {boolean} Whether to attempt to separate tracks by the same artist
+   * @returns {Promise<Track[]>} Sorted tracks
+   */
   async sorted(data, separate_artists = false) {
     let newTrackOrder;
 
@@ -34,10 +43,19 @@ export default class GenreSort {
     return newTrackOrder;
   }
 
+  /**
+   * Retrieve the necessary data for the input track.
+   * @param track {Track} Track to retrieve data for
+   */
   async retrieveData(track) {
     await track.retrieveGenres();
   }
 
+  /**
+   * Get the text to display for the input track.
+   * @param track {Track} Track to get display text for
+   * @returns {string} Display text for the input track. Shows genres.
+   */
   getDisplayText(track) {
     if (track.genres === null) {
       return 'Retrieving genres...';
@@ -49,7 +67,13 @@ export default class GenreSort {
   }
 
   // Helper functions
-
+  /**
+   * Get the number of genres shared between two tracks.
+   * @param track1 {Track} First track to compare.
+   * @param track2 {Track} Second track to compare.
+   * @returns {number} The number of genres shared.
+   * @private
+   */
   _getNumSharedGenres(track1, track2) {
     let sharedGenres = track1.genresHidden.filter((genre) => {
       return track2.genresHidden.includes(genre);
@@ -59,9 +83,10 @@ export default class GenreSort {
   }
 
   /**
-   * Gets a list of tracks in the input that all share the fewest possible genres with each other.
-   * @param {Track[]} data
+   * Get a list of tracks in the input that all share the fewest possible genres with each other.
+   * @param {Track[]} data Array of tracks to sort.
    * @returns {Number[]} Array of the indices in the inputted array of the tracks whose lowest nhumber of genre matches with any other track is the minimum out of the data.
+   * @private
    */
   _getLeastSimilarTracks(data) {
     let minSharedGenres = Infinity;
@@ -106,9 +131,10 @@ export default class GenreSort {
   }
 
   /**
-   * Finds the two consecutive tracks in the input data that share the fewest genres with each other.
-   * @param {Track[]} data
+   * Find the two consecutive tracks in the input data that share the fewest genres with each other.
+   * @param {Track[]} data Array of tracks to sort.
    * @returns {Number} Index of the first track in the pair.
+   * @private
    */
   _findLeastSimilarConsecutive(data) {
     let fewestMatches = Infinity;
@@ -133,6 +159,15 @@ export default class GenreSort {
     return indexOfFirst;
   }
 
+  /**
+   * Find the track in matchAgainst that is most similar to both track1 and track2.
+   * @param track1 {Track} First track to compare
+   * @param track2 {Track} Second track to compare
+   * @param matchAgainst {Track[]} List of tracks to compare to track1 and track2
+   * @param separate_artists {boolean} Whether to attempt to separate tracks by the same artist
+   * @returns {number} Index of the most similar track in matchAgainst
+   * @private
+   */
   _findMedianSimilarTrack(
     track1,
     track2,
