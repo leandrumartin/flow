@@ -1,14 +1,12 @@
-import { SpotifyWebApi } from "./spotify-web-api.js";
-
 import PlaylistDisplay from "./classes/PlaylistDisplay.js";
 import TrackList from "./classes/TrackList.js";
 import SortFactory from "./classes/SortFactory.js";
+import APISingleton from "./classes/APISingleton.js";
 
 let finalTrackIds;
 
 // Create Spotify API object
-var spotifyApi = new SpotifyWebApi();
-spotifyApi.setAccessToken(localStorage.getItem("access-token"));
+const spotifyApi = new APISingleton();
 
 // Helper functions
 const updateDataDisplay = (trackNum, displayText) => {
