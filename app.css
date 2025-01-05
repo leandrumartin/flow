@@ -36,3 +36,54 @@ div.track_container > a > p {
 fieldset {
   border-style: none;
 }
+
+.popover-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.explanation-popover {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: calc(100% + 10px);
+
+  display: none;
+
+  box-shadow: black 2px 2px 2px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  width: 200px;
+  padding: 10px;
+
+  text-align: start;
+}
+
+.popover-button {
+  margin-left: 5px;
+  padding: 0.1em;
+
+  height: 0.9em;
+
+  content: url("question icon.svg")
+}
+
+.popover-button:hover + .explanation-popover {
+  display: block;
+}
+
+@media (prefers-color-scheme: light) {
+  .explanation-popover {
+    background-color: white;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .explanation-popover {
+    background-color: rgb(40, 40, 40);
+  }
+
+  .popover-button {
+    filter: brightness(0) invert(1);
+  }
+}
