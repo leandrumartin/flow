@@ -24,7 +24,6 @@ div.track_container > a > p {
 }
 
 .data_display {
-  /* Mutiline text with ellipses overflow */
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -46,11 +45,13 @@ fieldset {
   position: absolute;
   z-index: 100;
   top: 0;
-  left: calc(100% + 10px);
+  left: calc(100% + 5px);
 
-  display: none;
+  opacity: 0;
 
-  box-shadow: black 2px 2px 2px;
+  transition: 100ms;
+
+  box-shadow: none;
   border: 1px solid gray;
   border-radius: 5px;
   width: 200px;
@@ -69,7 +70,13 @@ fieldset {
 }
 
 .popover-button:hover + .explanation-popover {
-  display: block;
+  left: calc(100% + 10px);
+
+  opacity: 1;
+
+  transition: 100ms;
+
+  box-shadow: black 2px 2px 2px;
 }
 
 @media (prefers-color-scheme: light) {
