@@ -29,14 +29,30 @@
             checked
           />
           <label for="genre_sort">Sort by genre</label>
+          <div class="popover-wrapper">
+            <span class="popover-button"></span>
+            <div class="explanation-popover">Sorts songs to maximize the genres shared between consecutive songs.</div>
+          </div>
         </div>
         <div class="input">
           <input type="radio" name="sort_method" id="mood_sort" value="mood" />
           <label for="mood_sort">Sort by mood</label>
+          <div class="popover-wrapper">
+            <span class="popover-button"></span>
+            <div class="explanation-popover">Sorts based on the valence ("happiness") and energy of the songs.</div>
+          </div>
         </div>
         <div class="input">
           <input type="radio" name="sort_method" id="AI_sort" value="AI" />
           <label for="AI_sort">Sort with AI</label>
+          <div class="popover-wrapper">
+            <span class="popover-button"></span>
+            <div class="explanation-popover">Sorts based on a machine learning model's response. The model converts the
+              track data to a vector of numbers, and the sort algorithm arranges songs to minimize the difference
+              between
+              vectors of consecutive songs.
+            </div>
+          </div>
         </div>
       </fieldset>
 
