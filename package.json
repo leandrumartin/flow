@@ -6,9 +6,12 @@
   "license": "ISC",
   "scripts": {
     "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "parcel": "^2.6.2"
   },
   "dependencies": {
