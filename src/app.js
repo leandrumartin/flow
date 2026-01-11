@@ -2,6 +2,7 @@ import PlaylistDisplay from "./classes/PlaylistDisplay.js";
 import TrackList from "./classes/TrackList.js";
 import SortFactory from "./classes/SortFactory.js";
 import APISingleton from "./classes/APISingleton.js";
+import Graph from "./classes/Graph";
 
 let finalTrackIds;
 
@@ -37,6 +38,36 @@ const reset = () => {
   document.querySelector("#new_track_order").innerHTML = "";
   document.querySelector("#new_playlist_form").style.display = "none";
 };
+
+const displayGraph = (data, sortString, selector) => {
+  let graphConfig;
+
+  switch (sortString) {
+    case "genre":
+      return;
+    case "mood":
+      graphConfig = {
+        type: "line",
+        data: {
+          labels: "",
+          datasets: [
+            {
+              label: "Energy",
+              data: data.map((track) => track.audioFeatures.energy)
+            },
+            {
+              label: "Valence",
+              data: data.map((track) => track.audioFeatures.valence)
+            }
+          ]
+        }
+      }
+      break;
+  }
+
+  let graph = new Graph(selector, graphConfig);
+  document.querySelector(selector).style.display = "block";
+}
 
 // Main
 document.querySelector("#submit").onclick = () => {
@@ -75,12 +106,18 @@ document.querySelector("#submit").onclick = () => {
         // Get necessary track data depending on what kind of sort is being done
         await trackList.retrieveData(sort, updateDataDisplay)
 
+        // Display graph of current playlist
+        displayGraph(trackList.data, sortString, "#old_graph");
+
         // Sort and display new order of tracks
         let separate_artists =
           document.querySelector("#separate_artists").value;
         await trackList.sort(sort, separate_artists);
         // trackList.sortByGenre(separate_artists);
-        displayNewTracks(trackList, sort);
+        displayNewTracks(trackList, sortString);
+
+        // Display graph of new playlist
+        displayGraph(trackList.data, sortString, "#new_graph");
 
         // Get list of final track IDs
         finalTrackIds = trackList.data.map((track) => {

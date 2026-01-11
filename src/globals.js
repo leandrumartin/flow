@@ -1,4 +1,4 @@
 export const clientId = "ab43246b21ef497899f31b2377c7ed84";
 
-export const redirectUri = "https://leandrumartin.github.io/flow/callback.html";
-// export const redirectUri = "http://127.0.0.1:5500/callback.html"; // For testing site with Jekyll
+// export const redirectUri = "https://leandrumartin.github.io/flow/callback.html";
+export const redirectUri = "http://127.0.0.1:1234/callback.html"; // For testing site with NPM

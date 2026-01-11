@@ -76,7 +76,7 @@ fieldset {
 
   transition: 100ms;
 
-  box-shadow: black 2px 2px 2px;
+  box-shadow: darkgray -2px 2px 2px;
 }
 
 @media (prefers-color-scheme: light) {
