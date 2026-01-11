@@ -3,4 +3,6 @@ _site
 .jekyll-cache
 .jekyll-metadata
 vendor
-.parcel-cache
+.parcel-cache/
+node_modules/
+dist/
