@@ -1,0 +1,1 @@
+export const redirect = "https://leandrumartin.github.io/flow/callback.html";
